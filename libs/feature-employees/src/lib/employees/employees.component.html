@@ -1,0 +1,31 @@
+<div class="comments-container__actions">
+  <div>
+    <input [formControl]="searchParam" placeholder="type to search"/>
+  </div>
+</div>
+	<hr />
+	<table style="width: 100%">
+		<thead>
+			<th>Name</th>
+			<th>Note</th>
+      <th>Resolved</th>
+			<th>Actions</th>
+		</thead>
+		<tbody>
+      <!-- !!!!!! Table row !!!!! -->
+      <ng-container *ngIf="employees$ | async as employees">
+        <tr *ngFor="let employee of employees">
+          <td>{{employee.name}}</td>
+          <td>{{employee.surname}}</td>
+          <td>{{employee.patronymic}}</td>
+          <td>{{employee.salary}}</td>
+          <td>{{employee.room}}</td>
+          <td>{{employee.hours}}</td>
+          <td>{{employee.email}}</td>
+          <td>
+            <a>Read more...</a>
+          </td>
+        </tr>
+      </ng-container>
+		</tbody>
+	</table>

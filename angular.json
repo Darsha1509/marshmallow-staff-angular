@@ -144,6 +144,58 @@
         }
       },
       "schematics": {}
+    },
+    "feature-emloyees": {
+      "projectType": "library",
+      "root": "libs/feature-emloyees",
+      "sourceRoot": "libs/feature-emloyees/src",
+      "prefix": "marshmallow-land",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/feature-emloyees/tsconfig.lib.json",
+              "libs/feature-emloyees/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/feature-emloyees/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/feature-emloyees/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "feature-employees": {
+      "projectType": "library",
+      "root": "libs/feature-employees",
+      "sourceRoot": "libs/feature-employees/src",
+      "prefix": "marshmallow-land",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/feature-employees/tsconfig.lib.json",
+              "libs/feature-employees/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/feature-employees/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/feature-employees/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

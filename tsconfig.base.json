@@ -18,6 +18,12 @@
     "paths": {
       "@marshmallow-land/data-access-eployees": [
         "libs/data-access-eployees/src/index.ts"
+      ],
+      "@marshmallow-land/feature-emloyees": [
+        "libs/feature-emloyees/src/index.ts"
+      ],
+      "@marshmallow-land/feature-employees": [
+        "libs/feature-employees/src/index.ts"
       ]
     }
   },
