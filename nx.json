@@ -29,6 +29,9 @@
     "employees-system-e2e": {
       "tags": [],
       "implicitDependencies": ["employees-system"]
+    },
+    "data-access-eployees": {
+      "tags": []
     }
   }
 }

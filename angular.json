@@ -118,6 +118,32 @@
           }
         }
       }
+    },
+    "data-access-eployees": {
+      "projectType": "library",
+      "root": "libs/data-access-eployees",
+      "sourceRoot": "libs/data-access-eployees/src",
+      "prefix": "marshmallow-land",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/data-access-eployees/tsconfig.lib.json",
+              "libs/data-access-eployees/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/data-access-eployees/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/data-access-eployees/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

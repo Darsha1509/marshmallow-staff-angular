@@ -1,0 +1,148 @@
+import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpResponse,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor
+} from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+
+import { Employee } from '@marshmallow-land/data-access-eployees';
+
+let employees: Employee[] = [
+  {
+    id: 1,
+    name: 'Darya',
+    surname: 'Kokorina',
+    patronymic: 'Vladimirovna',
+    salary: 100,
+    room: 301,
+    hours: 20,
+    email: 'darya.kakoryna@marshmallow.com'
+  },
+  {
+    id: 2,
+    name: 'Diana',
+    surname: 'Kashrina',
+    patronymic: 'Vladimirovna',
+    salary: 200,
+    room: 302,
+    hours: 26,
+    email: 'diana.kashrina@marshmallow.com'
+  },
+  {
+    id: 3,
+    name: 'Dmirty',
+    surname: 'Barodzich',
+    patronymic: 'Vitalievich',
+    salary: 50,
+    room: 303,
+    hours: 40,
+    email: 'dmitry.barodzich@marshmallow.com'
+  },
+  {
+    id: 4,
+    name: 'Maskim',
+    surname: 'Smel\'',
+    patronymic: 'Dmitrievich',
+    salary: 500,
+    room: 304,
+    hours: 50,
+    email: 'maksim.smel@marshmallow.com'
+  }
+];
+
+@Injectable()
+export class FakeBackendInterceptor implements HttpInterceptor {
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    const { url, method, body, params} = request;
+    const searchParams = params.getAll('search');
+
+    // wrap in delayes observable to simulate server api call
+    return of(null)
+      .pipe(mergeMap(handleRoute));
+
+    function handleRoute() {
+      switch(true) {
+        case url.endsWith("/employees") && method === "GET":
+          return getEmployees();
+        case url.endsWith("/employees") && method === "POST":
+          return createEmployee();
+        case url.match(/\/employees\/\d+$/) && method === "DELETE":
+          return deleteEmployee();
+        case url.match(/\/employees\/\d+$/) && method === "PATCH":
+          return updateEmployee();
+        case url.match(/\/employees\/\d+$/) && method === "GET":
+          return getEmployee();
+        default:
+          // pass through any requests not handled above
+          return next.handle(request);
+      }
+    }
+
+    function getEmployees() {
+      if(!searchParams || searchParams.length === 0) {
+        return ok({ data: employees });
+      }
+
+      const withSearch = employees.filter(item => {
+        return item.name.indexOf(searchParams[0]) > -1
+        || item.surname.indexOf(searchParams[0]) > -1
+        || item.patronymic.indexOf(searchParams[0]) > -1
+        || item.email.indexOf(searchParams[0]) > -1
+        || item.room === +searchParams[0]
+      });
+      return ok({ data: [...withSearch] });
+    }
+
+    function createEmployee() {
+      const employee = body;
+      const id = new Date().getTime();
+      employees = [{...employee, id}, ...employees];
+      return ok({ data: { id } });
+    }
+
+    function deleteEmployee() {
+      employees = employees.filter((employee: Employee) => employee.id !== idFromUrl());
+      return ok();
+    }
+
+    function updateEmployee() {
+      const id = idFromUrl();
+      const updates = body;
+      employees = employees.map((employee: Employee) => {
+        if(employee.id === id) {
+          return { ...employee, ...updates }
+        }
+        return { ...employee }
+      });
+      return ok({ data: { id } });
+    }
+
+    function getEmployee() {
+      const employee = employees.find(item => item.id === idFromUrl());
+      return ok({
+        data: !!employee ? { ...employee } : null
+      });
+    }
+
+    //helper functions 
+
+    function ok(body?) {
+      return of(new HttpResponse({ status: 200, body }));
+    }
+
+    function idFromUrl() {
+      const urlParts = url.split("/");
+      return +urlParts[urlParts.length - 1];
+    }
+  }
+
+
+}
+

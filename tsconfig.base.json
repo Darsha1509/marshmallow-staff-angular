@@ -15,7 +15,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@marshmallow-land/data-access-eployees": [
+        "libs/data-access-eployees/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
