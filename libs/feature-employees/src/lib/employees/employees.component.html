@@ -3,29 +3,53 @@
     <input [formControl]="searchParam" placeholder="type to search"/>
   </div>
 </div>
-	<hr />
-	<table style="width: 100%">
-		<thead>
-			<th>Name</th>
-			<th>Note</th>
-      <th>Resolved</th>
-			<th>Actions</th>
-		</thead>
-		<tbody>
-      <!-- !!!!!! Table row !!!!! -->
-      <ng-container *ngIf="employees$ | async as employees">
-        <tr *ngFor="let employee of employees">
-          <td>{{employee.name}}</td>
-          <td>{{employee.surname}}</td>
-          <td>{{employee.patronymic}}</td>
-          <td>{{employee.salary}}</td>
-          <td>{{employee.room}}</td>
-          <td>{{employee.hours}}</td>
-          <td>{{employee.email}}</td>
-          <td>
-            <a>Read more...</a>
-          </td>
-        </tr>
-      </ng-container>
-		</tbody>
-	</table>
+  <hr />
+  <div *ngIf="paginatorRef.isLoading$ | async">Loading...</div>
+  <section *ngIf="(pagination$ | async) as pagination">
+    <table style="width: 100%">
+      <thead>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Patronymic</th>
+        <th>Salary</th>
+        <th>Rooom</th>
+        <th>Hours</th>
+        <th>Email</th>
+      </thead>
+      <tbody>
+        <!-- !!!!!! Table row !!!!! -->
+          <tr *ngFor="let employee of pagination.data">
+            <td>{{employee.name}}</td>
+            <td>{{employee.surname}}</td>
+            <td>{{employee.patronymic}}</td>
+            <td>{{employee.salary}}$</td>
+            <td>{{employee.room}}</td>
+            <td>{{employee.hours}}</td>
+            <td>{{employee.email}}</td>
+            <td>
+              <a>Read more...</a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <p>{{pagination.from}} - {{pagination.to}} of {{pagination.total}}</p>
+
+    <nav>
+      <ul>
+        <li [class.disabled]="paginatorRef.isFirst" 
+            (click)="prevPage()">
+            <a>Previous</a>
+        </li>
+        <li [class.active]="paginatorRef.isPageActive(page)"  
+            (click)="setPage(page)"  
+            *ngFor="let page of pagination.pageControls">
+            <a>{{ page }}</a>
+        </li>
+        <li [class.disabled]="paginatorRef.isLast" 
+            (click)="nextPage()">
+            <a>Next</a>
+        </li>
+      </ul>
+    </nav>
+  </section>

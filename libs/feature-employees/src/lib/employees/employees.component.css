@@ -1,0 +1,17 @@
+.disabled {
+  color: gray;
+}
+
+.active {
+  color: red;
+}
+
+li {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+ul {
+  display: flex;
+  justify-content: space-around;
+}

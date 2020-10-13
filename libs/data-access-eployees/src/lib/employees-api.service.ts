@@ -3,15 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { Employee } from './empoyee.model';
+import { Employee } from './employee.model';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeesApiService {
   constructor(private http: HttpClient) {}
 
-  getEmployees(): Observable<Employee[]>{
-    return this.http.get<{ data: Employee[]}>("/employees").pipe(
-      map(res => res.data)
+  getEmployeesPage(page: string, search: string): Observable<{employees: Employee[]; count: number}>{
+    return this.http.get<{ data: Employee[], count: number}>(`/employees`, {params: { page, search }}).pipe(
+      map(res => {
+        return {employees: res.data, count: res.count}
+      })
     );
   }
 }

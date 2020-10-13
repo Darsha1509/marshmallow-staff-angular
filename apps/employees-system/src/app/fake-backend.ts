@@ -9,7 +9,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { Employee } from '@marshmallow-land/data-access-eployees';
+import { Employee, PER_PAGE } from '@marshmallow-land/data-access-eployees';
 
 let employees: Employee[] = [
   {
@@ -51,6 +51,96 @@ let employees: Employee[] = [
     room: 304,
     hours: 50,
     email: 'maksim.smel@marshmallow.com'
+  },
+  {
+    id: 5,
+    name: 'Maskim',
+    surname: 'Smel\'',
+    patronymic: 'Dmitrievich',
+    salary: 500,
+    room: 304,
+    hours: 50,
+    email: 'maksim.smel@marshmallow.com'
+  },
+  {
+    id: 6,
+    name: 'Maskim',
+    surname: 'Smel\'',
+    patronymic: 'Dmitrievich',
+    salary: 500,
+    room: 304,
+    hours: 50,
+    email: 'maksim.smel@marshmallow.com'
+  },
+  {
+    id: 7,
+    name: 'Maskim',
+    surname: 'Smel\'',
+    patronymic: 'Dmitrievich',
+    salary: 500,
+    room: 304,
+    hours: 50,
+    email: 'maksim.smel@marshmallow.com'
+  },
+  {
+    id: 8,
+    name: 'Maskim',
+    surname: 'Smel\'',
+    patronymic: 'Dmitrievich',
+    salary: 500,
+    room: 304,
+    hours: 50,
+    email: 'maksim.smel@marshmallow.com'
+  },
+  {
+    id: 9,
+    name: 'Maskim',
+    surname: 'Smel\'',
+    patronymic: 'Dmitrievich',
+    salary: 500,
+    room: 304,
+    hours: 50,
+    email: 'maksim.smel@marshmallow.com'
+  },
+  {
+    id: 10,
+    name: 'Maskim',
+    surname: 'Smel\'',
+    patronymic: 'Dmitrievich',
+    salary: 500,
+    room: 304,
+    hours: 50,
+    email: 'maksim.smel@marshmallow.com'
+  },
+  {
+    id: 11,
+    name: 'Maskim',
+    surname: 'Smel\'',
+    patronymic: 'Dmitrievich',
+    salary: 500,
+    room: 304,
+    hours: 50,
+    email: 'maksim.smel@marshmallow.com'
+  },
+  {
+    id: 12,
+    name: 'Maskim',
+    surname: 'Smel\'',
+    patronymic: 'Dmitrievich',
+    salary: 500,
+    room: 304,
+    hours: 50,
+    email: 'maksim.smel@marshmallow.com'
+  },
+  {
+    id: 13,
+    name: 'Alice',
+    surname: 'Smel\'',
+    patronymic: 'Dmitrievna',
+    salary: 500,
+    room: 304,
+    hours: 50,
+    email: 'alice.smel@marshmallow.com'
   }
 ];
 
@@ -61,7 +151,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const { url, method, body, params} = request;
-    const searchParams = params.getAll('search');
+    const searchParams = params.get('search');
+    const pageParams = params.get('page');
 
     // wrap in delayes observable to simulate server api call
     return of(null)
@@ -69,8 +160,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     function handleRoute() {
       switch(true) {
-        case url.endsWith("/employees") && method === "GET":
-          return getEmployees();
+        case url.match(/\/employees/) && method === "GET":          
+          return getEmployeesPage();
         case url.endsWith("/employees") && method === "POST":
           return createEmployee();
         case url.match(/\/employees\/\d+$/) && method === "DELETE":
@@ -85,10 +176,38 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
     }
 
-    function getEmployees() {
-      if(!searchParams || searchParams.length === 0) {
-        return ok({ data: employees });
-      }
+    function getEmployeesPage() {
+      if (pageParams) {
+        const lastEmployee = +pageParams * PER_PAGE - 1;
+        const firstEmloyee = lastEmployee - PER_PAGE + 1;
+
+        employees.sort(function(a: Employee, b: Employee) {
+          const nameA = a.name.toLowerCase();
+          const nameB = b.name.toLowerCase();
+
+          if(nameA < nameB) {
+            return -1;
+          }
+
+          if(nameA > nameB) {
+            return 1;
+          }
+
+          return 0;
+
+        });
+
+        const result: Employee[] = [];
+
+        console.log(firstEmloyee, lastEmployee);
+        for(let i = firstEmloyee; i <= lastEmployee; i++) {
+          if(i < employees.length) {
+            result.push(employees[i]);
+          }          
+        }        
+
+        return ok({ data: result, count: employees.length });
+      }      
 
       const withSearch = employees.filter(item => {
         return item.name.indexOf(searchParams[0]) > -1
