@@ -196,6 +196,32 @@
         }
       },
       "schematics": {}
+    },
+    "ui-filter": {
+      "projectType": "library",
+      "root": "libs/ui-filter",
+      "sourceRoot": "libs/ui-filter/src",
+      "prefix": "marshmallow-land",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ui-filter/tsconfig.lib.json",
+              "libs/ui-filter/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui-filter/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-filter/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

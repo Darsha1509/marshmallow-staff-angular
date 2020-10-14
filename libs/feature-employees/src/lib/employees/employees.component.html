@@ -3,8 +3,22 @@
     <input [formControl]="searchParam" placeholder="type to search"/>
   </div>
 </div>
-  <hr />
-  <div *ngIf="paginatorRef.isLoading$ | async">Loading...</div>
+<hr />
+<div *ngIf="paginatorRef.isLoading$ | async">Loading...</div>
+<div class="content-container">
+  <section>
+    <marshmallow-land-filter 
+      [label]="'Salary'"
+      (fromValMessage)="setMinSalary($event)"
+      (toValMessage)="setMaxSalary($event)">
+    </marshmallow-land-filter><br/>
+
+    <marshmallow-land-filter 
+      [label]="'Hours'"
+      (fromValMessage)="setMinHours($event)"
+      (toValMessage)="setMaxHours($event)">
+    </marshmallow-land-filter>
+  </section>
   <section *ngIf="(pagination$ | async) as pagination">
     <table style="width: 100%">
       <thead>
@@ -53,3 +67,4 @@
       </ul>
     </nav>
   </section>
+</div>

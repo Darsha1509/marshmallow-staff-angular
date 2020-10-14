@@ -15,3 +15,8 @@ ul {
   display: flex;
   justify-content: space-around;
 }
+
+.content-container {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}

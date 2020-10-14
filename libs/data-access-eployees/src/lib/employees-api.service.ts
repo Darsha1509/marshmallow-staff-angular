@@ -9,8 +9,15 @@ import { Employee } from './employee.model';
 export class EmployeesApiService {
   constructor(private http: HttpClient) {}
 
-  getEmployeesPage(page: string, search: string): Observable<{employees: Employee[]; count: number}>{
-    return this.http.get<{ data: Employee[], count: number}>(`/employees`, {params: { page, search }}).pipe(
+  getEmployeesPage(objectParams: {
+    page?: string; 
+    search?: string;
+    minSalary?: string;
+    maxSalary?: string;
+    minHours?: string;
+    maxHours?: string;
+  }): Observable<{employees: Employee[]; count: number}>{
+    return this.http.get<{ data: Employee[], count: number}>(`/employees`, {params: objectParams}).pipe(   
       map(res => {
         return {employees: res.data, count: res.count}
       })

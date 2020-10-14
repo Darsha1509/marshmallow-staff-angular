@@ -12,13 +12,20 @@ export const PER_PAGE = 10;
 export class EmployeesService {
   constructor(private api: EmployeesApiService) {}
 
-  getPage(page: string, search = ''): Observable<PaginationResponse<Employee>> {
-    return this.api.getEmployeesPage(page, search).pipe(
+  getPage(objectParams: {
+    page?: string; 
+    search?: string;
+    minSalary?: string;
+    maxSalary?: string;
+    minHours?: string;
+    maxHours?: string;
+  }): Observable<PaginationResponse<Employee>> {
+    return this.api.getEmployeesPage(objectParams).pipe(
       map(res => {
         return {
           perPage: res.count < PER_PAGE ? res.count : PER_PAGE,
           lastPage: res.count < PER_PAGE ? 1 : Math.ceil(res.count / PER_PAGE),
-          currentPage: +page,
+          currentPage: +objectParams.page,
           total: +res.count,
           data: res.employees
         }

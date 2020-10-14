@@ -38,6 +38,9 @@
     },
     "feature-employees": {
       "tags": []
+    },
+    "ui-filter": {
+      "tags": []
     }
   }
 }

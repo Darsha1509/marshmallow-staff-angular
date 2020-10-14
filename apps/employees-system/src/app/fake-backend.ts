@@ -153,6 +153,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     const { url, method, body, params} = request;
     const searchParams = params.get('search');
     const pageParams = params.get('page');
+    const minSalaryParams = params.get('minSalary');
+    const maxSalaryParams = params.get('maxSalary');
+    const minHoursParams = params.get('minHours');
+    const maxHoursParams = params.get('maxHours');
 
     // wrap in delayes observable to simulate server api call
     return of(null)
@@ -176,7 +180,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
     }
 
-    function getEmployeesPage() {
+    function getEmployeesPage() {      
       if (pageParams) {
         const lastEmployee = +pageParams * PER_PAGE - 1;
         const firstEmloyee = lastEmployee - PER_PAGE + 1;
@@ -197,16 +201,46 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         });
 
-        const result: Employee[] = [];
+        let result: Employee[] = employees;
+        
+        // min salary filter
+        if(minSalaryParams) {
+          result = result.filter(employee => {
+            return employee.salary >= +minSalaryParams;
+          });
+        }
 
-        console.log(firstEmloyee, lastEmployee);
+        // max salary filter
+        if(maxSalaryParams) {
+          result = result.filter(employee => {
+            return employee.salary <= +maxSalaryParams;
+          });
+        }
+
+        // min hours filter
+        if(minHoursParams) {
+          result = result.filter(employee => {
+            return employee.hours >= +minHoursParams;
+          });
+        }
+
+        // max hours filter
+        if(maxHoursParams) {
+          result = result.filter(employee => {
+            return employee.hours <= +maxHoursParams;
+          });
+        }
+
+        // extract employees page
+        const employeesPage: Employee[] = [];
+
         for(let i = firstEmloyee; i <= lastEmployee; i++) {
-          if(i < employees.length) {
-            result.push(employees[i]);
+          if(i < result.length) {
+            employeesPage.push(result[i]);
           }          
         }        
 
-        return ok({ data: result, count: employees.length });
+        return ok({ data: employeesPage, count: result.length });
       }      
 
       const withSearch = employees.filter(item => {

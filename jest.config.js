@@ -4,5 +4,6 @@ module.exports = {
     '<rootDir>/libs/data-access-eployees',
     '<rootDir>/libs/feature-emloyees',
     '<rootDir>/libs/feature-employees',
+    '<rootDir>/libs/ui-filter',
   ],
 };
