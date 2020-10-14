@@ -41,6 +41,9 @@
     },
     "ui-filter": {
       "tags": []
+    },
+    "ui-sort": {
+      "tags": []
     }
   }
 }

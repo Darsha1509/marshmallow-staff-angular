@@ -5,5 +5,6 @@ module.exports = {
     '<rootDir>/libs/feature-emloyees',
     '<rootDir>/libs/feature-employees',
     '<rootDir>/libs/ui-filter',
+    '<rootDir>/libs/ui-sort',
   ],
 };

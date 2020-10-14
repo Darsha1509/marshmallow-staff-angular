@@ -23,12 +23,36 @@
     <table style="width: 100%">
       <thead>
         <th>Name</th>
-        <th>Surname</th>
-        <th>Patronymic</th>
+        <th>
+          Surname
+          <marshmallow-land-sort 
+          (ascValMessage)="sortSurnameAsc($event)"
+          (descValMessage)="sortSurnameDesc($event)">
+        </marshmallow-land-sort>
+        </th>
+        <th>
+          Patronymic
+          <marshmallow-land-sort 
+          (ascValMessage)="sortPatronymicAsc($event)"
+          (descValMessage)="sortPatronymicDesc($event)">
+        </marshmallow-land-sort>
+        </th>
         <th>Salary</th>
-        <th>Rooom</th>
+        <th>
+          Rooom 
+          <marshmallow-land-sort 
+            (ascValMessage)="sortRoomAsc($event)"
+            (descValMessage)="sortRoomDesc($event)">
+          </marshmallow-land-sort>
+        </th>
         <th>Hours</th>
-        <th>Email</th>
+        <th>
+          Email
+          <marshmallow-land-sort 
+          (ascValMessage)="sortEmailAsc($event)"
+          (descValMessage)="sortEmailDesc($event)">
+        </marshmallow-land-sort>
+        </th>
       </thead>
       <tbody>
         <!-- !!!!!! Table row !!!!! -->

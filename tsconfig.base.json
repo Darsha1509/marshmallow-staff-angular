@@ -25,7 +25,8 @@
       "@marshmallow-land/feature-employees": [
         "libs/feature-employees/src/index.ts"
       ],
-      "@marshmallow-land/ui-filter": ["libs/ui-filter/src/index.ts"]
+      "@marshmallow-land/ui-filter": ["libs/ui-filter/src/index.ts"],
+      "@marshmallow-land/ui-sort": ["libs/ui-sort/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

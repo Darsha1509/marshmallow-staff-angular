@@ -157,6 +157,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     const maxSalaryParams = params.get('maxSalary');
     const minHoursParams = params.get('minHours');
     const maxHoursParams = params.get('maxHours');
+    const sortParams = params.get('sort');
 
     // wrap in delayes observable to simulate server api call
     return of(null)
@@ -182,57 +183,39 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     function getEmployeesPage() {      
       if (pageParams) {
-        const lastEmployee = +pageParams * PER_PAGE - 1;
-        const firstEmloyee = lastEmployee - PER_PAGE + 1;
-
-        employees.sort(function(a: Employee, b: Employee) {
-          const nameA = a.name.toLowerCase();
-          const nameB = b.name.toLowerCase();
-
-          if(nameA < nameB) {
-            return -1;
-          }
-
-          if(nameA > nameB) {
-            return 1;
-          }
-
-          return 0;
-
-        });
+        sortData('name', 'ASC', employees);
 
         let result: Employee[] = employees;
         
-        // min salary filter
+        // filtering employees by different params
         if(minSalaryParams) {
-          result = result.filter(employee => {
-            return employee.salary >= +minSalaryParams;
-          });
+          result = extractEmployees('salary', +minSalaryParams, 'min', result);
         }
 
-        // max salary filter
         if(maxSalaryParams) {
-          result = result.filter(employee => {
-            return employee.salary <= +maxSalaryParams;
-          });
+          result = extractEmployees('salary', +maxSalaryParams, 'max', result);
         }
 
-        // min hours filter
         if(minHoursParams) {
-          result = result.filter(employee => {
-            return employee.hours >= +minHoursParams;
-          });
+          result = extractEmployees('hours', +minHoursParams, 'min', result);
         }
 
-        // max hours filter
         if(maxHoursParams) {
-          result = result.filter(employee => {
-            return employee.hours <= +maxHoursParams;
-          });
+          result = extractEmployees('hours', +maxHoursParams, 'max', result);
+        }
+
+        // sort data
+        if(sortParams) {
+          const order = params.get('order');
+
+          sortData(sortParams, order, result);       
         }
 
         // extract employees page
         const employeesPage: Employee[] = [];
+
+        const lastEmployee = +pageParams * PER_PAGE - 1;
+        const firstEmloyee = lastEmployee - PER_PAGE + 1;
 
         for(let i = firstEmloyee; i <= lastEmployee; i++) {
           if(i < result.length) {
@@ -293,6 +276,65 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function idFromUrl() {
       const urlParts = url.split("/");
       return +urlParts[urlParts.length - 1];
+    }
+
+    // universal func for filtering data
+    function extractEmployees(param: string, value: number, borderType: string, users: Employee[]) {
+      return users.filter(employee => {
+        if(borderType === 'min') {
+          return employee[param] >= value;
+        } else {
+          return employee[param] <= value;
+        }
+      })
+    }
+
+    // universal func for sorting data
+    function sortData(param: string, order: string, sortingData: Employee[]) {
+      // get value of sorting data
+      function getSortParam(object: Employee, paramName: string): string | number {
+        let sortParam: string | number;
+
+        if(typeof object[paramName] === 'string') {
+          sortParam = object[paramName].toLowerCase();
+        } else {
+          sortParam = object[paramName];
+        }
+
+        return sortParam;
+      }
+
+      if(order === 'ASC') {
+        sortingData.sort(function(a: Employee, b: Employee) {
+          const sortParamA = getSortParam(a, param);
+          const sortParamB = getSortParam(b, param);          
+
+          if(sortParamA < sortParamB) {
+            return -1;
+          }
+
+          if(sortParamA > sortParamB) {
+            return 1;
+          }
+
+          return 0;
+        });
+      } else {
+        sortingData.sort(function(a: Employee, b: Employee) {
+          const sortParamA = getSortParam(a, param);
+          const sortParamB = getSortParam(b, param); 
+
+          if(sortParamA > sortParamB) {
+            return -1;
+          }
+
+          if(sortParamA < sortParamB) {
+            return 1;
+          }
+
+          return 0;
+        })
+      } 
     }
   }
 

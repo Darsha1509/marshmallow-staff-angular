@@ -222,6 +222,32 @@
         }
       },
       "schematics": {}
+    },
+    "ui-sort": {
+      "projectType": "library",
+      "root": "libs/ui-sort",
+      "sourceRoot": "libs/ui-sort/src",
+      "prefix": "marshmallow-land",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ui-sort/tsconfig.lib.json",
+              "libs/ui-sort/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui-sort/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-sort/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

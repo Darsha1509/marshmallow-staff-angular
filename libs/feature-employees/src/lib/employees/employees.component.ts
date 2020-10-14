@@ -26,6 +26,8 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     maxSalary?: string;
     minHours?: string;
     maxHours?: string;
+    sort?: string;
+    order?: string;
   }
 
   constructor(
@@ -43,6 +45,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
 
     this.pagination$ = this.route.queryParams.pipe(
       filter(params => Object.keys(params).length >= 1),
+      tap(data => console.log(data)),
       switchMap((queryData: { 
         page?: string; 
         search?: string;
@@ -86,50 +89,78 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     }
   }
 
+  // filtering methods
   setMinSalary(salary: string) {
+    this.setFiterData('minSalary', salary);
+  }
+
+  setMaxSalary(salary: string) {
+    this.setFiterData('maxSalary', salary);
+  }
+
+  setMinHours(hours: string) {
+    this.setFiterData('minHours', hours);
+  }
+
+  setMaxHours(hours: string) {
+    this.setFiterData('maxHours', hours);
+  }
+
+  private setFiterData(filterParam: string, value: string) {
     this.paginatorRef.clearPage(1);
 
-    this.queryParams.minSalary = salary;
+    this.queryParams[filterParam] = value;
 
-    if(!salary) {
-      delete this.queryParams.minSalary;      
+    if(!value) {
+      delete this.queryParams[filterParam];      
     }
 
     this.router.navigate([], { queryParams: this.queryParams });
     this.paginatorRef.setPage(1); 
   }
 
-  setMaxSalary(salary: string) {
-    this.paginatorRef.clearPage(1);
-
-    this.queryParams.maxSalary = salary;
-
-    if(!salary) {
-      delete this.queryParams.maxSalary;
-    }
-
-    this.router.navigate([], { queryParams: this.queryParams });
+  // sorting methods
+  sortRoomAsc(sortVal: boolean){
+    this.setSortParam('room', 'ASC', sortVal);
   }
 
-  setMinHours(hours: string) {
-    this.paginatorRef.clearPage(1);
-
-    this.queryParams.minHours = hours;
-
-    if(!hours) {
-      delete this.queryParams.minHours;      
-    }
-
-    this.router.navigate([], { queryParams: this.queryParams });
+  sortRoomDesc(sortVal: boolean){
+    this.setSortParam('room', 'DESC', sortVal);
   }
 
-  setMaxHours(hours: string) {
+  sortSurnameAsc(sortVal: boolean) {
+    this.setSortParam('surname', 'ASC', sortVal);
+  }
+
+  sortSurnameDesc(sortVal: boolean) {
+    this.setSortParam('surname', 'DESC', sortVal);
+  }
+
+  sortPatronymicAsc(sortVal: boolean) {
+    this.setSortParam('patronymic', 'ASC', sortVal);
+  }
+
+  sortPatronymicDesc(sortVal: boolean) {
+    this.setSortParam('patronymic', 'DESC', sortVal);
+  }
+
+  sortEmailAsc(sortVal: boolean) {
+    this.setSortParam('email', 'ASC', sortVal);
+  }
+
+  sortEmailDesc(sortVal: boolean) {
+    this.setSortParam('email', 'DESC', sortVal);
+  }
+
+  private setSortParam(param: string, order: string, sortVal: boolean) {
     this.paginatorRef.clearPage(1);
 
-    this.queryParams.maxHours = hours;
-
-    if(!hours) {
-      delete this.queryParams.maxHours;      
+    if(sortVal) {
+      this.queryParams.sort = param;
+      this.queryParams.order = order;
+    } else {
+      delete this.queryParams.sort;
+      delete this.queryParams.order;
     }
 
     this.router.navigate([], { queryParams: this.queryParams });

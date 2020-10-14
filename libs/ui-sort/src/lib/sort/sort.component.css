@@ -1,0 +1,28 @@
+.sort-container {
+  display: flex;
+  width: 100%;  
+}
+
+.sort-input {
+  width: 0;
+  height: 0;
+}
+
+.sort-image {
+  width: 18px;
+}
+
+.sort-image-asc {
+  position: absolute;
+  left: 0;
+}
+
+.sort-image-desc {
+  position: absolute;
+  right: 0;
+}
+
+.input-container {
+  position: relative;
+  width: 50%;
+}
