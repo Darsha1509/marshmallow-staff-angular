@@ -26,12 +26,12 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.toValue = new FormControl('');
 
     this.fromValueSubscription = this.fromValue.valueChanges.pipe(
-      debounceTime(500)
+      debounceTime(500),
     )
      .subscribe(data => this.fromValMessage.emit(String(data)));
 
     this.toValueSubscription = this.toValue.valueChanges.pipe(
-      debounceTime(500)
+      debounceTime(500),
     )
      .subscribe(data => this.toValMessage.emit(String(data)));
   }
