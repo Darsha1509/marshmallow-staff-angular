@@ -32,4 +32,28 @@ export class EmployeesService {
       })
     )
   }
+
+  createEmployee(employee: {
+    name: string;
+    surname: string;
+    patronymic: string;
+    salary: number;
+    room: number;
+    hours: number;
+    email: string;
+  }) {
+    return this.api.createEmployee(employee);
+  }
+
+  deleteEmployee(id: number) {
+    return this.api.deleteEmployee(id);
+  }
+
+  updateEmployee(id: number, employee: Employee) {
+    return this.api.updateEmployee(id, employee);
+  }
+
+  getEmployee(id: number) {
+    return this.api.getEmployee(id);
+  }
 }

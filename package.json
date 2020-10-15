@@ -40,6 +40,8 @@
     "@datorama/akita": "^5.2.5",
     "@datorama/akita-ngdevtools": "^5.0.3",
     "@nrwl/angular": "10.3.0",
+    "@types/jquery": "^3.5.3",
+    "jquery": "^3.5.1",
     "rxjs": "~6.5.5",
     "zone.js": "^0.10.2"
   },

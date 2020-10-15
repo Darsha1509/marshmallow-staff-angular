@@ -7,7 +7,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 import { Employee, PER_PAGE } from '@marshmallow-land/data-access-eployees';
 
@@ -159,17 +159,22 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     const maxHoursParams = params.get('maxHours');
     const sortParams = params.get('sort');
 
+    console.log(request);
+
     // wrap in delayes observable to simulate server api call
     return of(null)
-      .pipe(mergeMap(handleRoute));
+      .pipe(mergeMap(handleRoute))
+      .pipe(materialize()) 
+      .pipe(delay(500))
+      .pipe(dematerialize());
 
     function handleRoute() {
       switch(true) {
-        case url.match(/\/employees/) && method === "GET":          
+        case url.endsWith("/employees") && method === "GET":        
           return getEmployeesPage();
-        case url.endsWith("/employees") && method === "POST":
+        case url.match(/\/employees/) && method === "POST":
           return createEmployee();
-        case url.match(/\/employees\/\d+$/) && method === "DELETE":
+        case url.match(/\/employees\/\d+$/) && method === "DELETE":          
           return deleteEmployee();
         case url.match(/\/employees\/\d+$/) && method === "PATCH":
           return updateEmployee();
@@ -186,6 +191,18 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         sortData('name', 'ASC', employees);
 
         let result: Employee[] = employees;
+
+        // search employees
+        if(searchParams) {
+          result = result.filter((employee: Employee) => {
+            searchParams.toLocaleLowerCase();
+            return employee.name.toLocaleLowerCase().indexOf(searchParams) >= 0 
+              || employee.surname.toLocaleLowerCase().indexOf(searchParams) >= 0
+              || employee.patronymic.toLocaleLowerCase().indexOf(searchParams) >= 0
+              || employee.email.toLocaleLowerCase().indexOf(searchParams) >= 0
+              || String(employee.room).indexOf(searchParams) >= 0
+          });
+        }
         
         // filtering employees by different params
         if(minSalaryParams) {
@@ -215,9 +232,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const employeesPage: Employee[] = [];
 
         const lastEmployee = +pageParams * PER_PAGE - 1;
-        const firstEmloyee = lastEmployee - PER_PAGE + 1;
+        const firstEmployee = lastEmployee - PER_PAGE + 1;
 
-        for(let i = firstEmloyee; i <= lastEmployee; i++) {
+        for(let i = firstEmployee; i <= lastEmployee; i++) {
           if(i < result.length) {
             employeesPage.push(result[i]);
           }          

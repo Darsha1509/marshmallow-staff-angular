@@ -23,4 +23,30 @@ export class EmployeesApiService {
       })
     );
   }
+
+  createEmployee(employee: {
+    name: string;
+    surname: string;
+    patronymic: string;
+    salary: number;
+    room: number;
+    hours: number;
+    email: string;
+  }) {
+    return this.http.post<{data: {id: number}}>('/employees', employee);
+  }
+
+  deleteEmployee(id: number) {
+    return this.http.delete(`/employees/${id}`);
+  }
+
+  updateEmployee(id: number, employee: Employee) {
+    return this.http.patch(`/employees/${id}`, employee);
+  }
+
+  getEmployee(id: number) {
+    return this.http.get<{data: Employee | null}>(`/employees/${id}`).pipe(
+      map(res => res.data)
+    );
+  }
 }

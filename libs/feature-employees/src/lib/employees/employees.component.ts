@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, merge, Subject } from 'rxjs';
-import { startWith, switchMap, tap, map, delay, take, takeLast, filter } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { switchMap, tap, map, debounceTime, filter } from 'rxjs/operators';
 import { PaginatorPlugin, PaginationResponse } from '@datorama/akita';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -29,6 +29,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     sort?: string;
     order?: string;
   }
+  searchSubscription: Subscription;
 
   constructor(
     private employeesService: EmployeesService,
@@ -45,7 +46,6 @@ export class EmployeesComponent implements OnInit, OnDestroy {
 
     this.pagination$ = this.route.queryParams.pipe(
       filter(params => Object.keys(params).length >= 1),
-      tap(data => console.log(data)),
       switchMap((queryData: { 
         page?: string; 
         search?: string;
@@ -62,7 +62,23 @@ export class EmployeesComponent implements OnInit, OnDestroy {
         return this.paginatorRef.getPage(newFunc);
       })
     );
+
+    this.searchSubscription = this.searchParam.valueChanges.pipe(
+      debounceTime(500)
+    ).subscribe(data => {
+      this.paginatorRef.clearPage(1);
+
+      if(data) {
+        this.queryParams.search = data;
+      } else {
+        delete this.queryParams.search;
+      }
+      
+      this.router.navigate([], { queryParams: this.queryParams });
+    });
   }
+
+  
 
   prevPage() {    
     const { currentPage } = this.paginatorRef;
@@ -166,9 +182,17 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     this.router.navigate([], { queryParams: this.queryParams });
   }
 
+  redirectToEmployee(id: number) {
+    this.router.navigate([`/employees/${id}`]);
+  }
+
   ngOnDestroy() {
+    this.paginatorRef.clearPage(1);
     this.paginatorRef.destroy();
     this.router.navigate([], { queryParams: { } });
+    if(this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
   }
 
 }

@@ -22,7 +22,7 @@
               "apps/employees-system/src/assets"
             ],
             "styles": ["apps/employees-system/src/styles.css"],
-            "scripts": []
+            "scripts": ["node_modules/jquery/dist/jquery.min.js"]
           },
           "configurations": {
             "production": {
@@ -145,32 +145,6 @@
       },
       "schematics": {}
     },
-    "feature-emloyees": {
-      "projectType": "library",
-      "root": "libs/feature-emloyees",
-      "sourceRoot": "libs/feature-emloyees/src",
-      "prefix": "marshmallow-land",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/feature-emloyees/tsconfig.lib.json",
-              "libs/feature-emloyees/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/feature-emloyees/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/feature-emloyees/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {}
-    },
     "feature-employees": {
       "projectType": "library",
       "root": "libs/feature-employees",
@@ -243,6 +217,61 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/ui-sort/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "feature-marshmallow-container": {
+      "projectType": "library",
+      "root": "libs/feature-marshmallow-container",
+      "sourceRoot": "libs/feature-marshmallow-container/src",
+      "prefix": "marshmallow-land",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/feature-marshmallow-container/tsconfig.lib.json",
+              "libs/feature-marshmallow-container/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/feature-marshmallow-container/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/feature-marshmallow-container/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "feature-employee": {
+      "projectType": "library",
+      "root": "libs/feature-employee",
+      "sourceRoot": "libs/feature-employee/src",
+      "prefix": "marshmallow-land",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/feature-employee/tsconfig.lib.json",
+              "libs/feature-employee/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/feature-employee/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/feature-employee/jest.config.js",
             "passWithNoTests": true
           }
         }

@@ -19,14 +19,17 @@
       "@marshmallow-land/data-access-eployees": [
         "libs/data-access-eployees/src/index.ts"
       ],
-      "@marshmallow-land/feature-emloyees": [
-        "libs/feature-emloyees/src/index.ts"
-      ],
       "@marshmallow-land/feature-employees": [
         "libs/feature-employees/src/index.ts"
       ],
       "@marshmallow-land/ui-filter": ["libs/ui-filter/src/index.ts"],
-      "@marshmallow-land/ui-sort": ["libs/ui-sort/src/index.ts"]
+      "@marshmallow-land/ui-sort": ["libs/ui-sort/src/index.ts"],
+      "@marshmallow-land/feature-marshmallow-container": [
+        "libs/feature-marshmallow-container/src/index.ts"
+      ],
+      "@marshmallow-land/feature-employee": [
+        "libs/feature-employee/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

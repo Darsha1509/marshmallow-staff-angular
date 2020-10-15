@@ -1,0 +1,47 @@
+<form [formGroup]="newEmployee">
+  <div>
+    <label>Name: </label>
+    <input placeholder="Name" formControlName="name"/>
+  </div>
+  <div>
+    <label>Surname: </label>
+    <input placeholder="Surname" formControlName="surname"/>
+  </div>
+  <div>
+    <label>Patronymic: </label>
+    <input placeholder="Patronymic" formControlName="patronymic"/>
+  </div>
+  <div>
+    <label>Salary: </label>
+    <input placeholder="Salary" formControlName="salary"/>
+  </div>
+  <div>
+    <label>Room: </label>
+    <input placeholder="Room" formControlName="room"/>
+  </div>
+  <div>
+    <label>Hours: </label>
+    <input placeholder="Hours" formControlName="hours"/>
+  </div>
+  <div>
+    <label>Email: </label>
+    <input placeholder="Email" formControlName="email"/>
+  </div>
+</form>
+<button 
+  [ngStyle]="{display: employeeId ? 'none' : 'block'}"
+  [disabled]="!newEmployee.valid"
+  (click)="createEmployee()">
+  Create
+</button>
+<button 
+  [ngStyle]="{display: employeeId ? 'block' : 'none'}"
+  (click)="updateEmployee()">
+  Update
+</button>
+<button 
+  [ngStyle]="{display: employeeId ? 'block' : 'none'}"
+  (click)="deleteUser()">
+  Delete
+</button>
+

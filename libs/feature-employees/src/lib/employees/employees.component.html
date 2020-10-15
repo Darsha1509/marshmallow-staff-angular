@@ -65,7 +65,7 @@
             <td>{{employee.hours}}</td>
             <td>{{employee.email}}</td>
             <td>
-              <a>Read more...</a>
+              <a (click)="redirectToEmployee(employee.id)">Read more...</a>
             </td>
           </tr>
       </tbody>

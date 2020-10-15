@@ -33,9 +33,6 @@
     "data-access-eployees": {
       "tags": []
     },
-    "feature-emloyees": {
-      "tags": []
-    },
     "feature-employees": {
       "tags": []
     },
@@ -43,6 +40,12 @@
       "tags": []
     },
     "ui-sort": {
+      "tags": []
+    },
+    "feature-marshmallow-container": {
+      "tags": []
+    },
+    "feature-employee": {
       "tags": []
     }
   }
