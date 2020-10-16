@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'marshmallow-land-sort',
   templateUrl: './sort.component.html',
-  styleUrls: ['./sort.component.css']
+  styleUrls: ['./sort.component.css'],
 })
 export class SortComponent implements OnInit, OnDestroy {
   @Output() ascValMessage: EventEmitter<string> = new EventEmitter<string>();
@@ -23,15 +23,17 @@ export class SortComponent implements OnInit, OnDestroy {
     this.ascVal = new FormControl(false);
     this.descVal = new FormControl(false);
 
-    this.ascSubscription = this.ascVal.valueChanges.subscribe(data => this.ascValMessage.emit(data));
-    this.descSubscription = this.descVal.valueChanges.subscribe(data => this.descValMessage.emit(data));
+    this.ascSubscription = this.ascVal.valueChanges
+      .subscribe(data => this.ascValMessage.emit(data));
+    this.descSubscription = this.descVal.valueChanges
+      .subscribe(data => this.descValMessage.emit(data));
   }
 
-  changeAscSortVal(){
+  changeAscSortVal() {
     this.ascVal.setValue(!this.ascVal.value);
   }
 
-  changeDescSortVal(){
+  changeDescSortVal() {
     this.descVal.setValue(!this.descVal.value);
   }
 

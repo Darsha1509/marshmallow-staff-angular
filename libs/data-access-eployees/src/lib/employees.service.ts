@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { map, take, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { PaginationResponse } from '@datorama/akita';
 
@@ -13,7 +13,7 @@ export class EmployeesService {
   constructor(private api: EmployeesApiService) {}
 
   getPage(objectParams: {
-    page?: string; 
+    page?: string;
     search?: string;
     minSalary?: string;
     maxSalary?: string;
@@ -21,16 +21,16 @@ export class EmployeesService {
     maxHours?: string;
   }): Observable<PaginationResponse<Employee>> {
     return this.api.getEmployeesPage(objectParams).pipe(
-      map(res => {
+      map((res) => {
         return {
           perPage: res.count < PER_PAGE ? res.count : PER_PAGE,
           lastPage: res.count < PER_PAGE ? 1 : Math.ceil(res.count / PER_PAGE),
           currentPage: +objectParams.page,
           total: +res.count,
-          data: res.employees
-        }
-      })
-    )
+          data: res.employees,
+        };
+      }),
+    );
   }
 
   createEmployee(employee: {

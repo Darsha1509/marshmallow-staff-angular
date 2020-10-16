@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Employee } from './employee.model';
 
@@ -10,17 +10,17 @@ export class EmployeesApiService {
   constructor(private http: HttpClient) {}
 
   getEmployeesPage(objectParams: {
-    page?: string; 
+    page?: string;
     search?: string;
     minSalary?: string;
     maxSalary?: string;
     minHours?: string;
     maxHours?: string;
-  }): Observable<{employees: Employee[]; count: number}>{
-    return this.http.get<{ data: Employee[], count: number}>(`/employees`, {params: objectParams}).pipe(   
-      map(res => {
-        return {employees: res.data, count: res.count}
-      })
+  }): Observable<{employees: Employee[]; count: number}> {
+    return this.http.get<{ data: Employee[], count: number}>('/employees', { params: objectParams })
+      .pipe(map((res) => {
+        return { employees: res.data, count: res.count };
+      }),
     );
   }
 
@@ -46,7 +46,7 @@ export class EmployeesApiService {
 
   getEmployee(id: number) {
     return this.http.get<{data: Employee | null}>(`/employees/${id}`).pipe(
-      map(res => res.data)
+      map(res => res.data),
     );
   }
 }
