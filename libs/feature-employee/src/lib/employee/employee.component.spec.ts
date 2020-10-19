@@ -13,7 +13,6 @@ import {
 
 describe('EmployeeComponent', () => {
   let employeesQuery: EmployeesQuery;
-  let employeesService: EmployeesService;
   let activatedRoute: ActivatedRoute;
   let fixture: ComponentFixture<EmployeeComponent>;
   let component: EmployeeComponent;
@@ -46,7 +45,6 @@ describe('EmployeeComponent', () => {
 
   beforeEach(() => {
     employeesQuery = TestBed.inject(EmployeesQuery);
-    employeesService = TestBed.inject(EmployeesService);
     activatedRoute = TestBed.inject(ActivatedRoute);
 
     fixture = TestBed.createComponent(EmployeeComponent);
