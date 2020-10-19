@@ -1,23 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
-import { Employee, EmployeesQuery, EmployeesService} from'@marshmallow-land/data-access-eployees';
+import { Employee, EmployeesQuery, EmployeesService } from'@marshmallow-land/data-access-eployees';
 
 @Component({
   selector: 'marshmallow-land-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit, OnDestroy {
+export class EmployeeComponent implements OnInit {
   newEmployee: FormGroup;
   employeeId: number | null;
   employee: Employee;
-  createEmployeeSubscription: Subscription;
-  deleteEmployeeSubscription: Subscription;
-  updateEmployeeSubscription: Subscription;
-  getEmployeeSubscription: Subscription;
 
   constructor(
     private activatedRouter: ActivatedRoute,
@@ -44,7 +40,9 @@ export class EmployeeComponent implements OnInit, OnDestroy {
       if (this.employee) {
         this.setEmployee(this.employee);
       } else {
-        this.getEmployeeSubscription = this.employeesService.getEmployee(this.employeeId)
+        this.employeesService.getEmployee(this.employeeId).pipe(
+          take(1),
+        )
           .subscribe((data) => {
             this.employee = data;
             this.setEmployee(this.employee);
@@ -62,43 +60,29 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   }
 
   createEmployee() {
-    this.createEmployeeSubscription = this.employeesService.createEmployee(this.newEmployee.value)
+    this.employeesService.createEmployee(this.newEmployee.value).pipe(
+      take(1),
+    )
     .subscribe(() => {
       this.router.navigate(['/']);
     });
   }
 
   deleteUser() {
-    this.deleteEmployeeSubscription = this.employeesService.deleteEmployee(this.employee.id)
+    this.employeesService.deleteEmployee(this.employee.id).pipe(
+      take(1),
+    )
     .subscribe(() => {
       this.router.navigate(['/']);
     });
   }
 
   updateEmployee() {
-    this.updateEmployeeSubscription = this.employeesService
-    .updateEmployee(this.employee.id, this.newEmployee.value)
+    this.employeesService.updateEmployee(this.employee.id, this.newEmployee.value).pipe(
+      take(1),
+    )
     .subscribe(() => {
       this.router.navigate(['/']);
     });
   }
-
-  ngOnDestroy() {
-    if (this.deleteEmployeeSubscription) {
-      this.deleteEmployeeSubscription.unsubscribe();
-    }
-
-    if (this.createEmployeeSubscription) {
-      this.createEmployeeSubscription.unsubscribe();
-    }
-
-    if (this.updateEmployeeSubscription) {
-      this.updateEmployeeSubscription.unsubscribe();
-    }
-
-    if (this.getEmployeeSubscription) {
-      this.getEmployeeSubscription.unsubscribe();
-    }
-  }
-
 }

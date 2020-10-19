@@ -76,16 +76,18 @@
     <nav>
       <ul>
         <li [class.disabled]="paginatorRef.isFirst" 
-            (click)="prevPage()">
+            (click)="prevPage()"
+            class="prev-page">
             <a>Previous</a>
         </li>
-        <li [class.active]="paginatorRef.isPageActive(page)"  
+        <li [class.active]="paginatorRef.isPageActive(page)"
             (click)="setPage(page)"  
             *ngFor="let page of pagination.pageControls">
             <a>{{ page }}</a>
         </li>
         <li [class.disabled]="paginatorRef.isLast" 
-            (click)="nextPage()">
+            (click)="nextPage()"
+            class="next-page">
             <a>Next</a>
         </li>
       </ul>

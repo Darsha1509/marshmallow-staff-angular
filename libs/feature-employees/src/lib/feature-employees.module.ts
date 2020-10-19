@@ -9,8 +9,14 @@ import { UiSortModule } from '@marshmallow-land/ui-sort';
 import { DataAccessEployeesModule } from '@marshmallow-land/data-access-eployees';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, AppRoutingModule, UiFilterModule, UiSortModule, DataAccessEployeesModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    UiFilterModule,
+    UiSortModule,
+    DataAccessEployeesModule],
   declarations: [EmployeesComponent],
-  exports: [EmployeesComponent]
+  exports: [EmployeesComponent],
 })
 export class FeatureEmployeesModule {}

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { switchMap, tap, map, debounceTime, filter } from 'rxjs/operators';
+import { Observable, Subscription, Subject } from 'rxjs';
+import { switchMap, debounceTime, filter, takeUntil, tap } from 'rxjs/operators';
 import { PaginatorPlugin, PaginationResponse } from '@datorama/akita';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -26,6 +26,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     order?: string;
   };
   searchSubscription: Subscription;
+  private ngUnsubscribe = new Subject();
 
   constructor(
     private employeesService: EmployeesService,
@@ -61,6 +62,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
 
     this.searchSubscription = this.searchParam.valueChanges.pipe(
       debounceTime(500),
+      takeUntil(this.ngUnsubscribe),
     ).subscribe((data) => {
       this.paginatorRef.clearPage(1);
 
@@ -91,6 +93,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
 
   nextPage() {
     const { currentPage } = this.paginatorRef;
+    console.log(currentPage);
     if (!this.paginatorRef.isLast) {
       this.queryParams.page = String(currentPage + 1);
       this.router.navigate([], { queryParams: this.queryParams });
@@ -183,9 +186,8 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     this.paginatorRef.clearPage(1);
     this.paginatorRef.destroy();
     this.router.navigate([], { queryParams: { } });
-    if (this.searchSubscription) {
-      this.searchSubscription.unsubscribe();
-    }
+    this.ngUnsubscribe.next(null);
+    this.ngUnsubscribe.complete();
   }
 
 }
