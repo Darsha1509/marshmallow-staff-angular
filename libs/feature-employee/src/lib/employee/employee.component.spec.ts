@@ -73,11 +73,11 @@ describe('EmployeeComponent', () => {
   it('new employee', () => {
     component.ngOnInit();
     expect(component.newEmployee.get('name').value).toBeFalsy();
-    expect(component.newEmployee.get('name').value).toBeFalsy();
-    expect(component.newEmployee.get('name').value).toBeFalsy();
-    expect(component.newEmployee.get('name').value).toBeFalsy();
-    expect(component.newEmployee.get('name').value).toBeFalsy();
-    expect(component.newEmployee.get('name').value).toBeFalsy();
-    expect(component.newEmployee.get('name').value).toBeFalsy();
+    expect(component.newEmployee.get('surname').value).toBeFalsy();
+    expect(component.newEmployee.get('patronymic').value).toBeFalsy();
+    expect(component.newEmployee.get('salary').value).toBeFalsy();
+    expect(component.newEmployee.get('room').value).toBeFalsy();
+    expect(component.newEmployee.get('hours').value).toBeFalsy();
+    expect(component.newEmployee.get('email').value).toBeFalsy();
   });
 });
