@@ -21,7 +21,9 @@
               "apps/employees-system/src/favicon.ico",
               "apps/employees-system/src/assets"
             ],
-            "styles": ["apps/employees-system/src/styles.css"]
+            "styles": [
+              "apps/employees-system/src/styles.css"
+            ]
           },
           "configurations": {
             "production": {
@@ -79,7 +81,10 @@
               "apps/employees-system/tsconfig.spec.json",
               "apps/employees-system/tsconfig.editor.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/employees-system/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/employees-system/**/*"
+            ]
           }
         },
         "test": {
@@ -112,37 +117,16 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/employees-system-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/employees-system-e2e/**/*"]
+            "tsConfig": [
+              "apps/employees-system-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/employees-system-e2e/**/*"
+            ]
           }
         }
       }
-    },
-    "data-access-eployees": {
-      "projectType": "library",
-      "root": "libs/data-access-eployees",
-      "sourceRoot": "libs/data-access-eployees/src",
-      "prefix": "marshmallow-land",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/data-access-eployees/tsconfig.lib.json",
-              "libs/data-access-eployees/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/data-access-eployees/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/data-access-eployees/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {}
     },
     "feature-employees": {
       "projectType": "library",
@@ -157,7 +141,10 @@
               "libs/feature-employees/tsconfig.lib.json",
               "libs/feature-employees/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/feature-employees/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/feature-employees/**/*"
+            ]
           }
         },
         "test": {
@@ -183,7 +170,10 @@
               "libs/ui-filter/tsconfig.lib.json",
               "libs/ui-filter/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui-filter/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui-filter/**/*"
+            ]
           }
         },
         "test": {
@@ -209,7 +199,10 @@
               "libs/ui-sort/tsconfig.lib.json",
               "libs/ui-sort/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui-sort/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui-sort/**/*"
+            ]
           }
         },
         "test": {
@@ -251,32 +244,6 @@
       },
       "schematics": {}
     },
-    "feature-employee": {
-      "projectType": "library",
-      "root": "libs/feature-employee",
-      "sourceRoot": "libs/feature-employee/src",
-      "prefix": "marshmallow-land",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/feature-employee/tsconfig.lib.json",
-              "libs/feature-employee/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/feature-employee/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/feature-employee/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {}
-    },
     "models": {
       "projectType": "library",
       "root": "libs/models",
@@ -290,13 +257,74 @@
               "libs/models/tsconfig.lib.json",
               "libs/models/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/models/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/models/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/models/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "data-access-employees": {
+      "projectType": "library",
+      "root": "libs/data-access-employees",
+      "sourceRoot": "libs/data-access-employees/src",
+      "prefix": "marshmallow-land",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/data-access-employees/tsconfig.lib.json",
+              "libs/data-access-employees/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/data-access-employees/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/data-access-employees/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "feature-employee-details": {
+      "projectType": "library",
+      "root": "libs/feature-employee-details",
+      "sourceRoot": "libs/feature-employee-details/src",
+      "prefix": "marshmallow-land",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/feature-employee-details/tsconfig.lib.json",
+              "libs/feature-employee-details/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/feature-employee-details/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/feature-employee-details/jest.config.js",
             "passWithNoTests": true
           }
         }

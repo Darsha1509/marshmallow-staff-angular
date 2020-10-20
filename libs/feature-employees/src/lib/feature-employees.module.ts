@@ -6,7 +6,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { AppRoutingModule } from './employees-routing.module';
 import { UiFilterModule } from '@marshmallow-land/ui-filter';
 import { UiSortModule } from '@marshmallow-land/ui-sort';
-import { DataAccessEployeesModule } from '@marshmallow-land/data-access-eployees';
+import { DataAccessEmployeesModule } from '@marshmallow-land/data-access-employees';
 
 @NgModule({
   imports: [
@@ -15,8 +15,8 @@ import { DataAccessEployeesModule } from '@marshmallow-land/data-access-eployees
     AppRoutingModule,
     UiFilterModule,
     UiSortModule,
-    DataAccessEployeesModule],
+    DataAccessEmployeesModule],
   declarations: [EmployeesComponent],
   exports: [EmployeesComponent],
 })
-export class FeatureEmployeesModule {}
+export class FeatureEmployeeDetailssModule {}

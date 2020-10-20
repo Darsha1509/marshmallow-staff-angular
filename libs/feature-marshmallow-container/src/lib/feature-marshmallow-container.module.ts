@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ContainerComponent } from './container/container.component';
 
 import { MarshmallowRouterModule } from './marshmallow-routing.module';
-import { FeatureEmployeesModule } from '@marshmallow-land/feature-employees';
-import { FeatureEmployeeModule } from '@marshmallow-land/feature-employee';
+import { FeatureEmployeeDetailsModule } from '@marshmallow-land/feature-employee-details';
 
 @NgModule({
-  imports: [CommonModule, MarshmallowRouterModule, FeatureEmployeesModule, FeatureEmployeeModule],
+  imports: [CommonModule, MarshmallowRouterModule, FeatureEmployeeDetailsModule],
   declarations: [ContainerComponent],
   exports: [ContainerComponent],
 })

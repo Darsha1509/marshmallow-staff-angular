@@ -8,7 +8,7 @@ import {
   EmployeesQuery,
   EmployeesService,
   employees,
-} from '@marshmallow-land/data-access-eployees';
+} from '@marshmallow-land/data-access-employees';
 
 
 describe('EmployeeComponent', () => {

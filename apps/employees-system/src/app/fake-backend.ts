@@ -9,7 +9,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
-import { PER_PAGE } from '@marshmallow-land/data-access-eployees';
+import { PER_PAGE } from '@marshmallow-land/data-access-employees';
 import { Employee } from '@marshmallow-land/models';
 
 let employees: Employee[] = [

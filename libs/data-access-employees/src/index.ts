@@ -1,4 +1,4 @@
-export * from './lib/data-access-eployees.module';
+export * from './lib/data-access-employees.module';
 
 export { EmployeesApiService } from './lib/employees-api.service';
 export { EmployeesStore, EmployeesState } from './lib/employees.store';

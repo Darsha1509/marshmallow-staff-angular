@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'data-access-eployees',
+  displayName: 'data-access-employees',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -14,7 +14,7 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../coverage/libs/data-access-eployees',
+  coverageDirectory: '../../coverage/libs/data-access-employees',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

@@ -4,7 +4,7 @@ import { EmployeesComponent } from './employees.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UiFilterModule } from '@marshmallow-land/ui-filter';
 import { UiSortModule } from '@marshmallow-land/ui-sort';
-import { EmployeesService, employees, Employee } from '@marshmallow-land/data-access-eployees';
+import { EmployeesService, employees, Employee } from '@marshmallow-land/data-access-employees';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { PaginationResponse } from '@datorama/akita';

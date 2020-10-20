@@ -8,4 +8,4 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [EmployeeComponent],
   exports: [EmployeeComponent],
 })
-export class FeatureEmployeeModule {}
+export class FeatureEmployeeDetailsModule {}
