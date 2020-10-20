@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Employee } from './employee.model';
+import { Employee } from '@marshmallow-land/models';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeesApiService {

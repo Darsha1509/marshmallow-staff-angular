@@ -7,7 +7,7 @@ import { waitForAsync, TestBed } from '@angular/core/testing';
 
 import {
   employees as employeesStub,
-  newEmployee as employeeStub
+  newEmployee as employeeStub,
 } from './employees.stub';
 import { EmployeesApiService } from './employees-api.service';
 

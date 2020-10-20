@@ -29,7 +29,8 @@
       ],
       "@marshmallow-land/feature-employee": [
         "libs/feature-employee/src/index.ts"
-      ]
+      ],
+      "@marshmallow-land/models": ["libs/models/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

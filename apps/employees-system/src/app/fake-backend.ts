@@ -4,12 +4,13 @@ import {
   HttpResponse,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
-import { Employee, PER_PAGE } from '@marshmallow-land/data-access-eployees';
+import { PER_PAGE } from '@marshmallow-land/data-access-eployees';
+import { Employee } from '@marshmallow-land/models';
 
 let employees: Employee[] = [
   {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Employee } from './employee.model';
+import { Employee } from '@marshmallow-land/models';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 
 export interface EmployeesState extends EntityState<Employee> {}

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { PaginationResponse } from '@datorama/akita';
 
 import { EmployeesApiService } from './employees-api.service';
-import { Employee } from '@marshmallow-land/data-access-eployees';
+import { Employee } from '@marshmallow-land/models';
 
 export const PER_PAGE = 10;
 

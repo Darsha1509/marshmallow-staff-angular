@@ -1,4 +1,4 @@
-import { Employee } from './employee.model';
+import { Employee } from '@marshmallow-land/models';
 
 export const employees: Employee[] = [
   {

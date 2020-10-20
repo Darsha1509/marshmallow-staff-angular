@@ -7,5 +7,6 @@ module.exports = {
     '<rootDir>/libs/ui-sort',
     '<rootDir>/libs/feature-marshmallow-container',
     '<rootDir>/libs/feature-employee',
+    '<rootDir>/libs/models',
   ],
 };

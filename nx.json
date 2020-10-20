@@ -47,6 +47,9 @@
     },
     "feature-employee": {
       "tags": []
+    },
+    "models": {
+      "tags": []
     }
   }
 }

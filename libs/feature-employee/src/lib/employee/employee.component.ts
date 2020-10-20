@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
-import { Employee, EmployeesQuery, EmployeesService } from'@marshmallow-land/data-access-eployees';
+import { EmployeesQuery, EmployeesService } from'@marshmallow-land/data-access-eployees';
+import { Employee } from '@marshmallow-land/models';
 
 @Component({
   selector: 'marshmallow-land-employee',
