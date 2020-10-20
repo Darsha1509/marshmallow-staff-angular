@@ -21,8 +21,7 @@
               "apps/employees-system/src/favicon.ico",
               "apps/employees-system/src/assets"
             ],
-            "styles": ["apps/employees-system/src/styles.css"],
-            "scripts": ["node_modules/jquery/dist/jquery.min.js"]
+            "styles": ["apps/employees-system/src/styles.css"]
           },
           "configurations": {
             "production": {
