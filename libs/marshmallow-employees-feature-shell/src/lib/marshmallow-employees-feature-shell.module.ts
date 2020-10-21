@@ -10,4 +10,4 @@ import { FeatureEmployeeDetailsModule } from '@marshmallow-land/feature-employee
   declarations: [ContainerComponent],
   exports: [ContainerComponent],
 })
-export class FeatureMarshmallowContainerModule {}
+export class MarshmallowEmployeesFeatureShellModule {}

@@ -8,5 +8,6 @@ module.exports = {
     '<rootDir>/libs/feature-marshmallow-container',
     '<rootDir>/libs/feature-employee',
     '<rootDir>/libs/models',
+    '<rootDir>/libs/ui-employees-list',
   ],
 };

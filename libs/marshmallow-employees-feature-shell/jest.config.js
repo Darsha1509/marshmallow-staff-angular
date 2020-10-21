@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'ui-filter',
+  displayName: 'marshmallow-employees-feature-shell',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -14,7 +14,7 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../coverage/libs/ui-filter',
+  coverageDirectory: '../../coverage/libs/marshmallow-employees-feature-shell',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

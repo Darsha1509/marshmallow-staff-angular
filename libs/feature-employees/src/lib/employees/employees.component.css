@@ -20,8 +20,3 @@ ul {
   display: grid;
   grid-template-columns: 190px calc(100% - 190px);
 }
-
-td a {
-  color: blue;
-  cursor: pointer;
-}

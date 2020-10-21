@@ -4,18 +4,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { EmployeesComponent } from './employees/employees.component';
 import { AppRoutingModule } from './employees-routing.module';
-import { UiFilterModule } from '@marshmallow-land/ui-filter';
-import { UiSortModule } from '@marshmallow-land/ui-sort';
+import { UiModule } from '@marshmallow-land/ui';
 import { DataAccessEmployeesModule } from '@marshmallow-land/data-access-employees';
+import { UiEmployeesListModule } from '@marshmallow-land/ui-employees-list';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    UiFilterModule,
-    UiSortModule,
-    DataAccessEmployeesModule],
+    UiModule,
+    DataAccessEmployeesModule,
+    UiEmployeesListModule],
   declarations: [EmployeesComponent],
   exports: [EmployeesComponent],
 })

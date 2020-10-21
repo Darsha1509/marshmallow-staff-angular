@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { EmployeesService, EMPLOYEES_PAGINATOR, EmployeesState } from '@marshmallow-land/data-access-employees';
 import { Employee } from '@marshmallow-land/models';
+import { EmployeesListData } from '@marshmallow-land/ui-employees-list';
 
 @Component({
   selector: 'marshmallow-land-employees',
@@ -132,55 +133,23 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     this.paginatorRef.setPage(1);
   }
 
-  // sorting methods
-  sortRoomAsc(sortVal: boolean) {
-    this.setSortParam('room', 'ASC', sortVal);
-  }
-
-  sortRoomDesc(sortVal: boolean) {
-    this.setSortParam('room', 'DESC', sortVal);
-  }
-
-  sortSurnameAsc(sortVal: boolean) {
-    this.setSortParam('surname', 'ASC', sortVal);
-  }
-
-  sortSurnameDesc(sortVal: boolean) {
-    this.setSortParam('surname', 'DESC', sortVal);
-  }
-
-  sortPatronymicAsc(sortVal: boolean) {
-    this.setSortParam('patronymic', 'ASC', sortVal);
-  }
-
-  sortPatronymicDesc(sortVal: boolean) {
-    this.setSortParam('patronymic', 'DESC', sortVal);
-  }
-
-  sortEmailAsc(sortVal: boolean) {
-    this.setSortParam('email', 'ASC', sortVal);
-  }
-
-  sortEmailDesc(sortVal: boolean) {
-    this.setSortParam('email', 'DESC', sortVal);
-  }
-
-  private setSortParam(param: string, order: string, sortVal: boolean) {
-    this.paginatorRef.clearPage(1);
-
-    if (sortVal) {
-      this.queryParams.sort = param;
-      this.queryParams.order = order;
-    } else {
-      delete this.queryParams.sort;
-      delete this.queryParams.order;
-    }
-
-    this.router.navigate([], { queryParams: this.queryParams });
-  }
-
   redirectToEmployee(id: number) {
     this.router.navigate([`/employees/${id}`]);
+  }
+
+  handleListData(data: EmployeesListData) {
+    if (data.sort) {
+      this.paginatorRef.clearPage(1);
+      this.queryParams.sort = data.sort;
+      this.queryParams.order = data.order;
+      this.router.navigate([], { queryParams: this.queryParams });
+    } else if (data.sort && data.id) {
+      delete this.queryParams.sort;
+      delete this.queryParams.order;
+      this.router.navigate([], { queryParams: this.queryParams });
+    } else if (data.id) {
+      this.router.navigate([`/employees/${data.id}`]);
+    }
   }
 
   ngOnDestroy() {

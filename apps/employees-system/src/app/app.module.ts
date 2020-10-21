@@ -5,11 +5,11 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 import { AppComponent } from './app.component';
 import { FakeBackendInterceptor } from './fake-backend';
-import { FeatureMarshmallowContainerModule } from '@marshmallow-land/feature-marshmallow-container';
+import { MarshmallowEmployeesFeatureShellModule } from '@marshmallow-land/marshmallow-employees-feature-shell';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, FeatureMarshmallowContainerModule, HttpClientModule, AkitaNgDevtools.forRoot()],
+  imports: [BrowserModule, MarshmallowEmployeesFeatureShellModule, HttpClientModule, AkitaNgDevtools.forRoot()],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true}
   ],

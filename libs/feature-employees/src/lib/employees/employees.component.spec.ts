@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EmployeesComponent } from './employees.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UiFilterModule } from '@marshmallow-land/ui-filter';
-import { UiSortModule } from '@marshmallow-land/ui-sort';
+import { UiModule } from '@marshmallow-land/ui';
+import { UiEmployeesListModule } from '@marshmallow-land/ui-employees-list';
 import { EmployeesService, employees, Employee } from '@marshmallow-land/data-access-employees';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
@@ -19,8 +19,8 @@ describe('EmployeesComponent', () => {
       declarations: [EmployeesComponent],
       imports: [
         ReactiveFormsModule,
-        UiFilterModule,
-        UiSortModule,
+        UiModule,
+        UiEmployeesListModule,
         RouterTestingModule],
       providers: [
         {

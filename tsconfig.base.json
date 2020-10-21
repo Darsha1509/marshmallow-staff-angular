@@ -10,13 +10,8 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -24,28 +19,21 @@
       "@marshmallow-land/feature-employees": [
         "libs/feature-employees/src/index.ts"
       ],
-      "@marshmallow-land/ui-filter": [
-        "libs/ui-filter/src/index.ts"
-      ],
-      "@marshmallow-land/ui-sort": [
-        "libs/ui-sort/src/index.ts"
-      ],
-      "@marshmallow-land/feature-marshmallow-container": [
-        "libs/feature-marshmallow-container/src/index.ts"
-      ],
-      "@marshmallow-land/models": [
-        "libs/models/src/index.ts"
-      ],
+      "@marshmallow-land/models": ["libs/models/src/index.ts"],
       "@marshmallow-land/data-access-employees": [
         "libs/data-access-employees/src/index.ts"
       ],
       "@marshmallow-land/feature-employee-details": [
         "libs/feature-employee-details/src/index.ts"
+      ],
+      "@marshmallow-land/marshmallow-employees-feature-shell": [
+        "libs/marshmallow-employees-feature-shell/src/index.ts"
+      ],
+      "@marshmallow-land/ui": ["libs/ui/src/index.ts"],
+      "@marshmallow-land/ui-employees-list": [
+        "libs/ui-employees-list/src/index.ts"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

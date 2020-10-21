@@ -1,0 +1,54 @@
+<table style="width: 100%">
+  <thead>
+    <th>Name</th>
+    <th>
+      Surname
+      <marshmallow-land-sort 
+      (ascValMessage)="sendMessageToParent($event)"
+      (descValMessage)="sendMessageToParent($event)"
+      [value]="'surname'">
+    </marshmallow-land-sort>
+    </th>
+    <th>
+      Patronymic
+      <marshmallow-land-sort 
+      (ascValMessage)="sendMessageToParent($event)"
+      (descValMessage)="sendMessageToParent($event)"
+      [value]="'patronymic'">
+    </marshmallow-land-sort>
+    </th>
+    <th>Salary</th>
+    <th>
+      Rooom 
+      <marshmallow-land-sort 
+        (ascValMessage)="sendMessageToParent($event)"
+        (descValMessage)="sendMessageToParent($event)"
+        [value]="'room'">
+      </marshmallow-land-sort>
+    </th>
+    <th>Hours</th>
+    <th>
+      Email
+      <marshmallow-land-sort 
+      (ascValMessage)="sendMessageToParent($event)"
+      (descValMessage)="sendMessageToParent($event)"
+      [value]="'email'">
+    </marshmallow-land-sort>
+    </th>
+  </thead>
+  <tbody>
+    <!-- !!!!!! Table row !!!!! -->
+      <tr *ngFor="let employee of employees">
+        <td>{{employee.name}}</td>
+        <td>{{employee.surname}}</td>
+        <td>{{employee.patronymic}}</td>
+        <td>{{employee.salary}}$</td>
+        <td>{{employee.room}}</td>
+        <td>{{employee.hours}}</td>
+        <td>{{employee.email}}</td>
+        <td>
+          <a (click)="sendEmployeeId(employee.id)">Read more...</a>
+        </td>
+      </tr>
+  </tbody>
+</table>
