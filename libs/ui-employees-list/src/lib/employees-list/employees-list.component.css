@@ -2,3 +2,7 @@ td a {
   color: blue;
   cursor: pointer;
 }
+
+th {
+  height: 55px;
+}

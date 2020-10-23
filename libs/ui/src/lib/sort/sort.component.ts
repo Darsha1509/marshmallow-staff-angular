@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, forwardRef, EventEmitter, OnDestroy } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { FormGroup, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil, map } from 'rxjs/operators';
 
 interface SortMessage {
   sort?: string;
@@ -21,54 +21,58 @@ interface SortMessage {
   ],
 })
 export class SortComponent implements OnInit, OnDestroy,  ControlValueAccessor {
-  @Output() sortMessage: EventEmitter<SortMessage> = new EventEmitter<SortMessage>();
   @Input() value: string;
 
-  sortParams: SortMessage;
+  sortParams: FormGroup;
   asc: boolean;
   desc: boolean;
 
   private ngUnsubscribe = new Subject();
 
-  onChange = (value: SortMessage) => {};
+  private onTouched = () => {};
+  private onChange = (value: SortMessage): void => {};
 
   constructor() {}
 
   ngOnInit(): void {
-    this.sortParams = {
-      sort: this.value,
-    };
-
     this.asc = false;
     this.desc = false;
+
+    this.sortParams = new FormGroup({
+      sort: new FormControl(this.value),
+      order: new FormControl(''),
+    });
   }
 
   changeAscSortVal() {
     this.asc = !this.asc;
     if (this.asc) {
-      this.sortParams.order = 'ASC';
+      this.sortParams.get('order').setValue('ASC');
     } else {
-      delete this.sortParams.order;
+      this.sortParams.get('order').setValue('');
     }
-
-    this.writeValue(this.sortParams);
-    this.onChange(this.sortParams);
   }
 
   changeDescSortVal() {
     this.desc = !this.desc;
+    if (this.desc) {
+      this.sortParams.get('order').setValue('DESC');
+    } else {
+      this.sortParams.get('order').setValue('');
+    }
   }
 
-  writeValue(value: SortMessage) {
-    console.log('write', value);
+  writeValue(value: SortMessage) {}
+
+  registerOnChange(onChange: (value: string) => void) {
+    this.sortParams.valueChanges.pipe(
+      map(data => data.order === '' ? {} : data),
+      takeUntil(this.ngUnsubscribe),
+    ).subscribe(onChange);
   }
 
-  registerOnChange(callback: (change: any) => void) {
-    this.onChange = callback;
-  }
-
-  registerOnTouched() {
-
+  registerOnTouched(onTouched: () => void) {
+    this.onTouched = onTouched;
   }
 
   ngOnDestroy() {

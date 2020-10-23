@@ -4,31 +4,31 @@
     <th>
       Surname
       <marshmallow-land-sort
-      (sortMessage)="sendSortMessageToParent($event)"
-      [value]="'surname'">
+      [value]="'surname'"
+      [formControl]="employeeListParams">
     </marshmallow-land-sort>
     </th>
     <th>
       Patronymic
       <marshmallow-land-sort 
-      (sortMessage)="sendSortMessageToParent($event)"
-      [value]="'patronymic'">
+      [value]="'patronymic'"
+      [formControl]="employeeListParams">
     </marshmallow-land-sort>
     </th>
     <th>Salary</th>
     <th>
       Rooom 
       <marshmallow-land-sort 
-        (sortMessage)="sendSortMessageToParent($event)"
-        [value]="'room'">
+        [value]="'room'"
+        [formControl]="employeeListParams">
       </marshmallow-land-sort>
     </th>
     <th>Hours</th>
     <th>
       Email
       <marshmallow-land-sort 
-      (sortMessage)="sendSortMessageToParent($event)"
-      [value]="'email'">
+      [value]="'email'"
+      [formControl]="employeeListParams">
     </marshmallow-land-sort>
     </th>
   </thead>

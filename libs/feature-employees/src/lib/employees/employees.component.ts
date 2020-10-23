@@ -28,6 +28,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     order?: string;
   };
   filterData: FormGroup;
+  employeesTableData: FormControl;
   private ngUnsubscribe = new Subject();
 
   constructor(
@@ -43,6 +44,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
       salary: new FormControl({}),
       hours: new FormControl({}),
     });
+    this.employeesTableData = new FormControl();
     this.queryParams = { page: '1' };
 
     this.router.navigate([], { queryParams: this.queryParams });
@@ -56,6 +58,8 @@ export class EmployeesComponent implements OnInit, OnDestroy {
         maxSalary?: string;
         minHours?: string;
         maxHours?: string;
+        sort?: string;
+        order?: string;
       }) => {
         function requestFn() {
           return this.employeesService.getPage(queryData);
@@ -84,7 +88,6 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     this.filterData.valueChanges.pipe(
       takeUntil(this.ngUnsubscribe),
     ).subscribe((data) => {
-      console.log(data);
       if (data.salary.from || data.salary.from === '') {
         this.setFilterData('minSalary', data.salary.from);
       }
@@ -99,6 +102,26 @@ export class EmployeesComponent implements OnInit, OnDestroy {
 
       if (data.hours.to || data.hours.to === '') {
         this.setFilterData('maxHours', data.hours.to);
+      }
+    });
+
+    this.employeesTableData.valueChanges.pipe(
+      takeUntil(this.ngUnsubscribe),
+    ).subscribe((data: EmployeesListData) => {
+      if (data.sort) {
+        this.paginatorRef.clearPage(1);
+        this.queryParams.sort = data.sort;
+        this.queryParams.order = data.order;
+        this.router.navigate([], { queryParams: this.queryParams });
+      } else {
+        this.paginatorRef.clearPage(1);
+        delete this.queryParams.sort;
+        delete this.queryParams.order;
+        this.router.navigate([], { queryParams: this.queryParams });
+      }
+
+      if (data.id) {
+        this.router.navigate([`employees/${data.id}`], {});
       }
     });
   }
@@ -139,25 +162,6 @@ export class EmployeesComponent implements OnInit, OnDestroy {
 
     this.router.navigate([], { queryParams: this.queryParams });
     this.paginatorRef.setPage(1);
-  }
-
-  redirectToEmployee(id: number) {
-    this.router.navigate([`/employees/${id}`]);
-  }
-
-  handleListData(data: EmployeesListData) {
-    if (data.sort) {
-      this.paginatorRef.clearPage(1);
-      this.queryParams.sort = data.sort;
-      this.queryParams.order = data.order;
-      this.router.navigate([], { queryParams: this.queryParams });
-    } else if (data.sort && data.id) {
-      delete this.queryParams.sort;
-      delete this.queryParams.order;
-      this.router.navigate([], { queryParams: this.queryParams });
-    } else if (data.id) {
-      this.router.navigate([`/employees/${data.id}`]);
-    }
   }
 
   ngOnDestroy() {

@@ -20,8 +20,8 @@
   <section *ngIf="(pagination$ | async) as pagination">
 
     <marshmallow-land-employees-list
-      [employees]="pagination.data"
-      (employeeListMessage)="handleListData($event)">
+      [formControl]="employeesTableData"
+      [employees]="pagination.data">
     </marshmallow-land-employees-list>
 
     <p>{{pagination.from}} - {{pagination.to}} of {{pagination.total}}</p>
