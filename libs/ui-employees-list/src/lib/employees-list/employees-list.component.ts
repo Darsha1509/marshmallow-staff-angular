@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 import { Employee } from '@marshmallow-land/models';
 
@@ -18,12 +19,19 @@ export class EmployeesListComponent implements OnInit {
   @Output() employeeListMessage: EventEmitter<EmployeesListData>
     = new EventEmitter<EmployeesListData>();
 
+  // sortParams: FormGroup;
+
   constructor() { }
 
   ngOnInit(): void {
+    // this.sortParams = new FormGroup({
+    //   surname: new FormControl({}),
+    //   patronymic: new FormControl({}),
+    // });
   }
 
-  sendMessageToParent(data: EmployeesListData) {
+  sendSortMessageToParent(data: EmployeesListData) {
+    console.log(data);
     this.employeeListMessage.emit(data);
   }
 

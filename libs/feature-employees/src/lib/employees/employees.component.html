@@ -6,70 +6,18 @@
 <hr />
 <div *ngIf="paginatorRef.isLoading$ | async">Loading...</div>
 <div class="content-container">
-  <section>
+  <section [formGroup]="filterData">
     <marshmallow-land-filter 
       [label]="'Salary'"
-      (fromValMessage)="setMinSalary($event)"
-      (toValMessage)="setMaxSalary($event)">
+      [formControl]="filterData.controls['salary']">
     </marshmallow-land-filter><br/>
 
     <marshmallow-land-filter 
       [label]="'Hours'"
-      (fromValMessage)="setMinHours($event)"
-      (toValMessage)="setMaxHours($event)">
+      [formControl]="filterData.controls['hours']">
     </marshmallow-land-filter>
   </section>
   <section *ngIf="(pagination$ | async) as pagination">
-    <!-- <table style="width: 100%">
-      <thead>
-        <th>Name</th>
-        <th>
-          Surname
-          <marshmallow-land-sort 
-          (ascValMessage)="sortSurnameAsc($event)"
-          (descValMessage)="sortSurnameDesc($event)">
-        </marshmallow-land-sort>
-        </th>
-        <th>
-          Patronymic
-          <marshmallow-land-sort 
-          (ascValMessage)="sortPatronymicAsc($event)"
-          (descValMessage)="sortPatronymicDesc($event)">
-        </marshmallow-land-sort>
-        </th>
-        <th>Salary</th>
-        <th>
-          Rooom 
-          <marshmallow-land-sort 
-            (ascValMessage)="sortRoomAsc($event)"
-            (descValMessage)="sortRoomDesc($event)">
-          </marshmallow-land-sort>
-        </th>
-        <th>Hours</th>
-        <th>
-          Email
-          <marshmallow-land-sort 
-          (ascValMessage)="sortEmailAsc($event)"
-          (descValMessage)="sortEmailDesc($event)">
-        </marshmallow-land-sort>
-        </th>
-      </thead>
-      <tbody>
-        
-          <tr *ngFor="let employee of pagination.data">
-            <td>{{employee.name}}</td>
-            <td>{{employee.surname}}</td>
-            <td>{{employee.patronymic}}</td>
-            <td>{{employee.salary}}$</td>
-            <td>{{employee.room}}</td>
-            <td>{{employee.hours}}</td>
-            <td>{{employee.email}}</td>
-            <td>
-              <a (click)="redirectToEmployee(employee.id)">Read more...</a>
-            </td>
-          </tr>
-      </tbody>
-    </table> -->
 
     <marshmallow-land-employees-list
       [employees]="pagination.data"

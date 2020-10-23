@@ -1,44 +1,59 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, forwardRef } from '@angular/core';
+import { FormControl, FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil, debounceTime } from 'rxjs/operators';
+
+interface FilterValue {
+  from: number | null;
+  to: number | null;
+}
 
 @Component({
   selector: 'marshmallow-land-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css']
+  styleUrls: ['./filter.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FilterComponent),
+      multi: true,
+    },
+  ],
 })
-export class FilterComponent implements OnInit, OnDestroy {
+export class FilterComponent implements OnInit, OnDestroy, ControlValueAccessor {
   @Input() label: string;
-  @Output() fromValMessage: EventEmitter<string> = new EventEmitter<string>();
-  @Output() toValMessage: EventEmitter<string> = new EventEmitter<string>();
 
-  fromValue: FormControl;
-  toValue: FormControl;
+  filterData: FormGroup;
 
-  fromValueSubscription: Subscription;
-  toValueSubscription: Subscription;
+  private ngUnsubscribe =  new Subject();
 
   constructor() { }
 
   ngOnInit(): void {
-    this.fromValue = new FormControl('');
-    this.toValue = new FormControl('');
+    this.filterData = new FormGroup({
+      from: new FormControl(null, Validators.pattern(/^-?(0|[1-9]\d*)?$/)),
+      to: new FormControl(null, Validators.pattern(/^-?(0|[1-9]\d*)?$/)),
+    });
+  }
 
-    this.fromValueSubscription = this.fromValue.valueChanges.pipe(
-      debounceTime(500),
-    )
-     .subscribe(data => this.fromValMessage.emit(String(data)));
+  writeValue(value: FilterValue) {
 
-    this.toValueSubscription = this.toValue.valueChanges.pipe(
+  }
+
+  registerOnChange(fn: (value: any) => void) {
+    this.filterData.valueChanges.pipe(
+      takeUntil(this.ngUnsubscribe),
       debounceTime(500),
-    )
-     .subscribe(data => this.toValMessage.emit(String(data)));
+    ).subscribe(fn);
+  }
+
+  registerOnTouched() {
+
   }
 
   ngOnDestroy() {
-    this.fromValueSubscription.unsubscribe();
-    this.toValueSubscription.unsubscribe();
+    this.ngUnsubscribe.next(null);
+    this.ngUnsubscribe.complete();
   }
 
 }

@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, Input, Output, forwardRef, EventEmitter, OnDestroy } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 
-interface Data {
+interface SortMessage {
   sort?: string;
   order?: string;
 }
@@ -12,58 +12,63 @@ interface Data {
   selector: 'marshmallow-land-sort',
   templateUrl: './sort.component.html',
   styleUrls: ['./sort.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SortComponent),
+      multi: true,
+    },
+  ],
 })
-export class SortComponent implements OnInit, OnDestroy {
-  @Output() ascValMessage: EventEmitter<Data> = new EventEmitter<Data>();
-  @Output() descValMessage: EventEmitter<Data> = new EventEmitter<Data>();
+export class SortComponent implements OnInit, OnDestroy,  ControlValueAccessor {
+  @Output() sortMessage: EventEmitter<SortMessage> = new EventEmitter<SortMessage>();
   @Input() value: string;
 
-  ascVal: FormControl;
-  descVal: FormControl;
-  sortData: Data;
+  sortParams: SortMessage;
+  asc: boolean;
+  desc: boolean;
+
   private ngUnsubscribe = new Subject();
 
-  constructor() { }
+  onChange = (value: SortMessage) => {};
+
+  constructor() {}
 
   ngOnInit(): void {
-    this.ascVal = new FormControl(false);
-    this.descVal = new FormControl(false);
-    this.sortData = {
+    this.sortParams = {
       sort: this.value,
-      order: '',
     };
 
-    this.ascVal.valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe),
-    )
-      .subscribe((data) => {
-        if (data) {
-          this.sortData.order = 'ASC';
-          this.ascValMessage.emit(this.sortData);
-        } else {
-          this.ascValMessage.emit({});
-        }
-      });
-
-    this.descVal.valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe),
-    )
-      .subscribe((data) => {
-        if (data) {
-          this.sortData.order = 'DESC';
-          this.descValMessage.emit(this.sortData);
-        } else {
-          this.ascValMessage.emit({});
-        }
-      });
+    this.asc = false;
+    this.desc = false;
   }
 
   changeAscSortVal() {
-    this.ascVal.setValue(!this.ascVal.value);
+    this.asc = !this.asc;
+    if (this.asc) {
+      this.sortParams.order = 'ASC';
+    } else {
+      delete this.sortParams.order;
+    }
+
+    this.writeValue(this.sortParams);
+    this.onChange(this.sortParams);
   }
 
   changeDescSortVal() {
-    this.descVal.setValue(!this.descVal.value);
+    this.desc = !this.desc;
+  }
+
+  writeValue(value: SortMessage) {
+    console.log('write', value);
+  }
+
+  registerOnChange(callback: (change: any) => void) {
+    this.onChange = callback;
+  }
+
+  registerOnTouched() {
+
   }
 
   ngOnDestroy() {

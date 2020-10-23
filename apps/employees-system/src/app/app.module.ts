@@ -9,9 +9,14 @@ import { MarshmallowEmployeesFeatureShellModule } from '@marshmallow-land/marshm
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, MarshmallowEmployeesFeatureShellModule, HttpClientModule, AkitaNgDevtools.forRoot()],
+  imports: [
+    BrowserModule,
+    MarshmallowEmployeesFeatureShellModule,
+    HttpClientModule,
+    AkitaNgDevtools.forRoot(),
+  ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

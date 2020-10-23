@@ -1,7 +1,7 @@
-<div>
+<div [formGroup]="filterData">
   <label><b>{{ label }}</b></label>
   <span> from </span>
-  <input [formControl]="fromValue" class="filter-input"/>
+  <input formControlName="from" class="filter-input"/>
   <span> to </span>
-  <input [formControl]="toValue" class="filter-input"/>
+  <input formControlName="to" class="filter-input"/>
 </div>

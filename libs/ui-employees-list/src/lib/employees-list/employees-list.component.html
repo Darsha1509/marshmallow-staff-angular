@@ -3,17 +3,15 @@
     <th>Name</th>
     <th>
       Surname
-      <marshmallow-land-sort 
-      (ascValMessage)="sendMessageToParent($event)"
-      (descValMessage)="sendMessageToParent($event)"
+      <marshmallow-land-sort
+      (sortMessage)="sendSortMessageToParent($event)"
       [value]="'surname'">
     </marshmallow-land-sort>
     </th>
     <th>
       Patronymic
       <marshmallow-land-sort 
-      (ascValMessage)="sendMessageToParent($event)"
-      (descValMessage)="sendMessageToParent($event)"
+      (sortMessage)="sendSortMessageToParent($event)"
       [value]="'patronymic'">
     </marshmallow-land-sort>
     </th>
@@ -21,8 +19,7 @@
     <th>
       Rooom 
       <marshmallow-land-sort 
-        (ascValMessage)="sendMessageToParent($event)"
-        (descValMessage)="sendMessageToParent($event)"
+        (sortMessage)="sendSortMessageToParent($event)"
         [value]="'room'">
       </marshmallow-land-sort>
     </th>
@@ -30,8 +27,7 @@
     <th>
       Email
       <marshmallow-land-sort 
-      (ascValMessage)="sendMessageToParent($event)"
-      (descValMessage)="sendMessageToParent($event)"
+      (sortMessage)="sendSortMessageToParent($event)"
       [value]="'email'">
     </marshmallow-land-sort>
     </th>

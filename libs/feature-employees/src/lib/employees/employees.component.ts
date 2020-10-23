@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { switchMap, debounceTime, filter, takeUntil, tap } from 'rxjs/operators';
 import { PaginatorPlugin, PaginationResponse } from '@datorama/akita';
@@ -27,7 +27,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     sort?: string;
     order?: string;
   };
-  searchSubscription: Subscription;
+  filterData: FormGroup;
   private ngUnsubscribe = new Subject();
 
   constructor(
@@ -39,6 +39,10 @@ export class EmployeesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchParam = new FormControl('');
+    this.filterData = new FormGroup({
+      salary: new FormControl({}),
+      hours: new FormControl({}),
+    });
     this.queryParams = { page: '1' };
 
     this.router.navigate([], { queryParams: this.queryParams });
@@ -62,7 +66,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
       }),
     );
 
-    this.searchSubscription = this.searchParam.valueChanges.pipe(
+    this.searchParam.valueChanges.pipe(
       debounceTime(500),
       takeUntil(this.ngUnsubscribe),
     ).subscribe((data) => {
@@ -75,6 +79,27 @@ export class EmployeesComponent implements OnInit, OnDestroy {
       }
 
       this.router.navigate([], { queryParams: this.queryParams });
+    });
+
+    this.filterData.valueChanges.pipe(
+      takeUntil(this.ngUnsubscribe),
+    ).subscribe((data) => {
+      console.log(data);
+      if (data.salary.from || data.salary.from === '') {
+        this.setFilterData('minSalary', data.salary.from);
+      }
+
+      if (data.salary.to || data.salary.to === '') {
+        this.setFilterData('maxSalary', data.salary.to);
+      }
+
+      if (data.hours.from || data.hours.from === '')  {
+        this.setFilterData('minHours', data.hours.from);
+      }
+
+      if (data.hours.to || data.hours.to === '') {
+        this.setFilterData('maxHours', data.hours.to);
+      }
     });
   }
 
@@ -103,24 +128,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     }
   }
 
-  // filtering methods
-  setMinSalary(salary: string) {
-    this.setFiterData('minSalary', salary);
-  }
-
-  setMaxSalary(salary: string) {
-    this.setFiterData('maxSalary', salary);
-  }
-
-  setMinHours(hours: string) {
-    this.setFiterData('minHours', hours);
-  }
-
-  setMaxHours(hours: string) {
-    this.setFiterData('maxHours', hours);
-  }
-
-  private setFiterData(filterParam: string, value: string) {
+  private setFilterData(filterParam: string, value: string) {
     this.paginatorRef.clearPage(1);
 
     this.queryParams[filterParam] = value;

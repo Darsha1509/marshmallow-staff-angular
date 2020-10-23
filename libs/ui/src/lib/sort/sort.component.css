@@ -1,11 +1,7 @@
 .sort-container {
+  position: relative;
   display: flex;
   width: 100%;
-}
-
-.sort-input {
-  width: 0;
-  height: 0;
 }
 
 .sort-image {
