@@ -13,7 +13,7 @@ import { Employee } from '@marshmallow-land/models';
 })
 export class EmployeeComponent implements OnInit {
   newEmployee: FormGroup;
-  employeeId: number | null;
+  employeeId: number | string;
   employee: Employee;
 
   constructor(
@@ -24,7 +24,7 @@ export class EmployeeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.employeeId = this.activatedRouter.snapshot.params['employeeId'] || null;
+    this.employeeId = this.activatedRouter.snapshot.params['employeeId'];
     this.newEmployee = new FormGroup({
       name: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
@@ -35,13 +35,13 @@ export class EmployeeComponent implements OnInit {
       email: new FormControl('', Validators.required),
     });
 
-    if (this.employeeId) {
+    if (String(this.employeeId) !== 'new') {
       this.employee = this.employeesQuery.getEntity(this.employeeId);
 
       if (this.employee) {
         this.setEmployee(this.employee);
       } else {
-        this.employeesService.getEmployee(this.employeeId).pipe(
+        this.employeesService.getEmployee(Number(this.employeeId)).pipe(
           take(1),
         )
           .subscribe((data) => {

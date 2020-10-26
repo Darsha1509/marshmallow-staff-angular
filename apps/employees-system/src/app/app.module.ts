@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { FakeBackendInterceptor } from './fake-backend';
 import { MarshmallowEmployeesFeatureShellModule } from '@marshmallow-land/marshmallow-employees-feature-shell';
 
+import { AppRouterModule } from './app-routing.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -14,6 +16,7 @@ import { MarshmallowEmployeesFeatureShellModule } from '@marshmallow-land/marshm
     MarshmallowEmployeesFeatureShellModule,
     HttpClientModule,
     AkitaNgDevtools.forRoot(),
+    AppRouterModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },

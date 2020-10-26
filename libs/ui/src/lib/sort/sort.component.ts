@@ -3,7 +3,7 @@ import { FormGroup, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from 
 import { Subject } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
 
-interface SortMessage {
+export interface SortMessage {
   sort?: string;
   order?: string;
 }

@@ -6,12 +6,11 @@ import { EmployeesComponent } from '@marshmallow-land/feature-employees';
 
 export const routes = [
   { path: '', component: EmployeesComponent },
-  { path: 'employees/new', component: EmployeeComponent },
   { path: 'employees/:employeeId', component: EmployeeComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class MarshmallowRouterModule {}

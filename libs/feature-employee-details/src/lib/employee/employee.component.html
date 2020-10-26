@@ -29,18 +29,18 @@
   </div>
 </form>
 <button 
-  [ngStyle]="{display: employeeId ? 'none' : 'block'}"
+  [ngStyle]="{display: employeeId === 'new' ? 'block' : 'none'}"
   [disabled]="!newEmployee.valid"
   (click)="createEmployee()">
   Create
 </button>
 <button 
-  [ngStyle]="{display: employeeId ? 'block' : 'none'}"
+  [ngStyle]="{display: employeeId !== 'new' ? 'block' : 'none'}"
   (click)="updateEmployee()">
   Update
 </button>
 <button 
-  [ngStyle]="{display: employeeId ? 'block' : 'none'}"
+  [ngStyle]="{display: employeeId !== 'new' ? 'block' : 'none'}"
   (click)="deleteUser()">
   Delete
 </button>
