@@ -14,17 +14,15 @@ import { Employee } from '@marshmallow-land/models';
 export class EmployeeComponent implements OnInit {
   newEmployee: FormGroup;
   employeeId: number | string;
-  employee: Employee;
 
   constructor(
     private activatedRouter: ActivatedRoute,
     private router: Router,
     private employeesQuery: EmployeesQuery,
     private employeesService: EmployeesService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.employeeId = this.activatedRouter.snapshot.params['employeeId'];
     this.newEmployee = new FormGroup({
       name: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
@@ -35,21 +33,17 @@ export class EmployeeComponent implements OnInit {
       email: new FormControl('', Validators.required),
     });
 
-    if (String(this.employeeId) !== 'new') {
-      this.employee = this.employeesQuery.getEntity(this.employeeId);
+    this.employeeId = this.activatedRouter.snapshot.params['employeeId'];
 
-      if (this.employee) {
-        this.setEmployee(this.employee);
-      } else {
-        this.employeesService.getEmployee(Number(this.employeeId)).pipe(
+    this.activatedRouter.data.pipe(
+      take(1),
+    ).subscribe((data: { isDataInState: Employee }) => {
+      if (data.isDataInState) {
+        this.employeesQuery.selectEntity(this.employeeId).pipe(
           take(1),
-        )
-          .subscribe((data) => {
-            this.employee = data;
-            this.setEmployee(this.employee);
-          });
+        ).subscribe(employee => this.setEmployee(employee));
       }
-    }
+    });
   }
 
   private setEmployee(employee: Employee) {
@@ -70,7 +64,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   deleteUser() {
-    this.employeesService.deleteEmployee(this.employee.id).pipe(
+    this.employeesService.deleteEmployee(+this.employeeId).pipe(
       take(1),
     )
     .subscribe(() => {
@@ -79,7 +73,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   updateEmployee() {
-    this.employeesService.updateEmployee(this.employee.id, this.newEmployee.value).pipe(
+    this.employeesService.updateEmployee(+this.employeeId, this.newEmployee.value).pipe(
       take(1),
     )
     .subscribe(() => {

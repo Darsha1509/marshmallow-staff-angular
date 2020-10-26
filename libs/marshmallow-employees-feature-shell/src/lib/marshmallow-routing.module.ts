@@ -1,12 +1,18 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { EmployeeComponent } from '@marshmallow-land/feature-employee-details';
+import { EmployeeComponent, EmployeeResolver } from '@marshmallow-land/feature-employee-details';
 import { EmployeesComponent } from '@marshmallow-land/feature-employees';
 
 export const routes = [
   { path: '', component: EmployeesComponent },
-  { path: 'employees/:employeeId', component: EmployeeComponent },
+  {
+    path: 'employees/:employeeId',
+    component: EmployeeComponent,
+    resolve: {
+      isDataInState: EmployeeResolver,
+    },
+  },
 ];
 
 @NgModule({

@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { PaginationResponse } from '@datorama/akita';
 
 import { EmployeesApiService } from './employees-api.service';
+import { EmployeesStore } from './employees.store';
 import { Employee } from '@marshmallow-land/models';
 
 export const PER_PAGE = 10;
 
 @Injectable({ providedIn: 'root' })
 export class EmployeesService {
-  constructor(private api: EmployeesApiService) {}
+  constructor(private api: EmployeesApiService, private employeesStore: EmployeesStore) {}
 
   getPage(objectParams: {
     page?: string;
@@ -55,5 +56,9 @@ export class EmployeesService {
 
   getEmployee(id: number) {
     return this.api.getEmployee(id);
+  }
+
+  setEmployee(employee: Employee) {
+    this.employeesStore.add(employee);
   }
 }
