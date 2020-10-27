@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeeComponent } from './employee/employee.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
-import { EmployeeResolver } from './employee.resolver';
+import { EmployeeDetailsRoutingModule } from './feature-employee-details-routing.module';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, EmployeeDetailsRoutingModule],
   declarations: [EmployeeComponent],
   exports: [EmployeeComponent],
-  providers: [EmployeeResolver],
 })
 export class FeatureEmployeeDetailsModule {}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap, take } from 'rxjs/operators';
 
@@ -14,7 +14,6 @@ export class EmployeeResolver implements Resolve<boolean> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
     const id = route.params['employeeId'];
-
     return id !== 'new' ? this.employeesQuery.selectEntity(id).pipe(
       take(1),
       switchMap((data): Observable<boolean> => {

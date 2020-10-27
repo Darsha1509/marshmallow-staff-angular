@@ -1,18 +1,23 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { EmployeeComponent, EmployeeResolver } from '@marshmallow-land/feature-employee-details';
-import { EmployeesComponent } from '@marshmallow-land/feature-employees';
+import { EmployeeResolver } from './employee.resolver';
 
 export const routes = [
-  { path: '', component: EmployeesComponent },
+  {
+    path: 'employees',
+    loadChildren: () => import('@marshmallow-land/feature-employees')
+      .then(m => m.FeatureEmployeesModule),
+  },
   {
     path: 'employees/:employeeId',
-    component: EmployeeComponent,
+    loadChildren: () => import('@marshmallow-land/feature-employee-details')
+      .then(m => m.FeatureEmployeeDetailsModule),
     resolve: {
       isDataInState: EmployeeResolver,
     },
   },
+  { path: '', redirectTo: '/employees', pathMatch: 'full' },
 ];
 
 @NgModule({
