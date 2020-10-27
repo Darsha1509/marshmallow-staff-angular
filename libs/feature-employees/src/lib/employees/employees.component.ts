@@ -5,9 +5,10 @@ import { switchMap, debounceTime, filter, takeUntil, tap } from 'rxjs/operators'
 import { PaginatorPlugin, PaginationResponse } from '@datorama/akita';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { EmployeesService, EMPLOYEES_PAGINATOR, EmployeesState } from '@marshmallow-land/data-access-employees';
+import { EmployeesService, EmployeesState } from '@marshmallow-land/data-access-employees';
 import { Employee } from '@marshmallow-land/models';
 import { EmployeesListData } from '@marshmallow-land/ui-employees-list';
+import { EMPLOYEES_PAGINATOR } from '../employees-paginator';
 
 @Component({
   selector: 'marshmallow-land-employees',
