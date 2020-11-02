@@ -144,7 +144,6 @@ export class EmployeesComponent implements OnInit, OnDestroy {
 
   nextPage() {
     const { currentPage } = this.paginatorRef;
-    console.log(currentPage);
     if (!this.paginatorRef.isLast) {
       this.queryParams.page = String(currentPage + 1);
       this.router.navigate([], { queryParams: this.queryParams });
@@ -168,7 +167,6 @@ export class EmployeesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.paginatorRef.clearPage(1);
     this.paginatorRef.destroy();
-    this.router.navigate([], { queryParams: { } });
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
   }

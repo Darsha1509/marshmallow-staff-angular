@@ -37,7 +37,6 @@ export class EmployeeComponent implements OnInit {
 
     this.activatedRouter.data.pipe(
       take(1),
-      tap(data => console.log(data)),
       filter((data: { isDataInState : boolean }) => data.isDataInState),
       switchMap(() => this.employeesQuery.selectEntity(this.employeeId).pipe(take(1))),
     ).subscribe(employee => this.setEmployee(employee));
