@@ -5,7 +5,6 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 import { AppComponent } from './app.component';
 import { FakeBackendInterceptor } from './fake-backend';
-import { MarshmallowEmployeesFeatureShellModule } from '@marshmallow-land/marshmallow-employees-feature-shell';
 
 import { AppRouterModule } from './app-routing.module';
 
@@ -13,7 +12,6 @@ import { AppRouterModule } from './app-routing.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    MarshmallowEmployeesFeatureShellModule,
     HttpClientModule,
     AkitaNgDevtools.forRoot(),
     AppRouterModule,

@@ -1,10 +1,12 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { ContainerComponent } from '@marshmallow-land/marshmallow-employees-feature-shell';
-
 export const routes = [
-  { path: '', component: ContainerComponent },
+  {
+    path: '',
+    loadChildren: () => import('@marshmallow-land/marshmallow-employees-feature-shell')
+      .then(m => m.MarshmallowEmployeesFeatureShellModule),
+  },
 ];
 
 @NgModule({
