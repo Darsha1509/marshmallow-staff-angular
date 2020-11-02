@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { take, filter, switchMap, tap } from 'rxjs/operators';
 
 import { EmployeesQuery, EmployeesService } from'@marshmallow-land/data-access-employees';
 import { Employee } from '@marshmallow-land/models';
@@ -37,13 +37,10 @@ export class EmployeeComponent implements OnInit {
 
     this.activatedRouter.data.pipe(
       take(1),
-    ).subscribe((data: { isDataInState: Employee }) => {
-      if (data.isDataInState) {
-        this.employeesQuery.selectEntity(this.employeeId).pipe(
-          take(1),
-        ).subscribe(employee => this.setEmployee(employee));
-      }
-    });
+      tap(data => console.log(data)),
+      filter((data: { isDataInState : boolean }) => data.isDataInState),
+      switchMap(() => this.employeesQuery.selectEntity(this.employeeId).pipe(take(1))),
+    ).subscribe(employee => this.setEmployee(employee));
   }
 
   private setEmployee(employee: Employee) {
